@@ -6,14 +6,19 @@
   "scripts": {
     "start": "electron .",
     "dev": "nodemon --exec electron .",
-    "test": "test"
+    "test": "test",
+    "sass-dev": "sass --watch --update --style=expanded src/styles/scss:src/styles",
+    "sass-prod": "sass --no-source-map --style=compressed src/styles/scss:src/styles"
   },
   "author": "Ren-Logronio",
   "license": "UNLICENSED",
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "5.3.2",
     "electron-reload": "^2.0.0-alpha.1",
     "nodemon": "^3.0.2",
+    "sass": "^1.69.5",
+    "scss": "^0.2.4",
     "typescript": "^5.3.2",
     "yarn": "^1.22.21"
   },
