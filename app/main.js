@@ -3,6 +3,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 
+require('@electron/remote/main').initialize();
+
 const createWindow = () => {
     const win = new BrowserWindow({
         title: 'Stormcaster',
@@ -11,12 +13,18 @@ const createWindow = () => {
         minWidth: 400,
         minHeight: 300,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            nodeIntegration: true,
+            nodeIntegrationInWorker: true,
+            nodeIntegrationInSubFrames: true,
+            enableRemoteModule: true,
+            contextIsolation: false,
         }
     })
     win.setMenuBarVisibility(false);
     win.setAspectRatio(4/3);
     win.loadFile('index.html');
+    win.webContents.openDevTools();
+    require('@electron/remote/main').enable(win.webContents);
 
     ipcMain.handle('dark-mode:toggle', () => {
         if (nativeTheme.shouldUseDarkColors) {
