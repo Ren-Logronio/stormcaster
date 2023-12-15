@@ -5,6 +5,9 @@ console.log("Testing remote")
 const dfd = require('danfojs');
 console.log("Testing done")
 
+
+var dataFrameHook;
+
 const openFileDialog = (elements) => {
     const options = {
         title: 'Select CSV File',
@@ -27,6 +30,8 @@ const openFileDialog = (elements) => {
     });
 }
 
+
+
 const openCSVFile = (filePath, elements) => {
     dfd.readCSV(filePath).then(df => {
         console.log(df.head());
@@ -36,10 +41,6 @@ const openCSVFile = (filePath, elements) => {
         console.error(err);
     });
     // Todo - danfojs
-}
-
-const parseCSV = () => {
-
 }
 
         

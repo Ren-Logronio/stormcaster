@@ -12,6 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <style>
+
             * {
                 box-sizing: border-box;
                 animation: all linear 1s;
@@ -21,6 +22,7 @@
                 all: unset;
                 
             }
+
         </style>
         <script src="./renderer.js"></script>
     </head>
@@ -28,8 +30,14 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <div class="min-vh-100 position-relative">
+            <div>
+            </div>
+            <div class>
+                <button id="upload-button" class="btn btn-primary">Upload File</button>
+            </div>
+        </div>
         <p id="error-text"></p>
-        <button id="upload-button" class="btn btn-primary">Upload File</button>
-        <div id="analysis-description"></div>
+        <div class="min-vh-100 min-vw-100 position-absolute top-0 start-0"></div>
     </body>
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <style>
+            * {
+                box-sizing: border-box;
+                animation: all linear 1s;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container container-fluid">
+            <div class="row">
+                <div id="target" class="col-3 bg-success">
+                    Row 1
+                </div>
+                <div class="col-6 bg-primary">
+                    Row 2
+                </div>
+            </div>
+        </div>
+        <button id="interact" class="btn btn-primary">Change</button>
+        <script>
+            const log = (text) => {console.log(text)};
+            document.addEventListener('DOMContentLoaded',() => {
+                const target = document.getElementById("target");
+                const interaction = document.getElementById("interact");
+                interaction.addEventListener('click',() => {
+                    document.getElementById('interact').innerHTML = 'Changed';
+                    target.style = "background-color: red !important;";
+                });
+            });
+        </script>
+        <script src="" async defer></script>
+    </body>
+</html>

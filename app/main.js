@@ -5,6 +5,8 @@ const path = require('node:path');
 
 require('@electron/remote/main').initialize();
 
+const DEBUG = true;
+
 const createWindow = () => {
     const win = new BrowserWindow({
         title: 'Stormcaster',
@@ -23,7 +25,7 @@ const createWindow = () => {
     win.setMenuBarVisibility(false);
     win.setAspectRatio(4/3);
     win.loadFile('index.html');
-    win.webContents.openDevTools();
+    if(DEBUG) win.webContents.openDevTools();
     require('@electron/remote/main').enable(win.webContents);
 
     ipcMain.handle('dark-mode:toggle', () => {

@@ -286,3 +286,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = StormCasterApp(root)
     root.mainloop()
+
