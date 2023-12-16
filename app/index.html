@@ -13,118 +13,10 @@
         <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./node_modules/animate.css/animate.min.css">
         <link rel="stylesheet" href="./src/styles/style.css">
+        <script src="./src/scripts/hooks.js"></script>
+        <script src="./src/scripts/slides.js" defer></script>
+        <script src="./src/scripts/dropbox.js" defer></script>
         <script src="./renderer.js" defer></script>
-        <script src="./node_modules/bootstrap/js/index.umd.js" defer></script>
-        <script defer>
-            var elementHook;
-            var isSliderInTransition = false;
-            var sliderIndex = 1;
-            const sliderMinIndex = 1;
-            const sliderMaxIndex = 6;
-            const speed = 0.9;
-
-            const jumpSlide = (sliderIndexToJumpTo) => {
-                if (sliderIndexToJumpTo < sliderMinIndex || sliderIndexToJumpTo > sliderMaxIndex || sliderIndex == sliderIndexToJumpTo || isSliderInTransition) {
-                    return;
-                }
-                var currentSliderAnimation;
-                var nextSliderAnimation;
-                if(sliderIndex > sliderIndexToJumpTo) {
-                    currentSliderAnimation = "animate__fadeOutRight";
-                    nextSliderAnimation = "animate__fadeInLeft";
-                } else if(sliderIndex < sliderIndexToJumpTo) {
-                    currentSliderAnimation = "animate__fadeOutLeft";
-                    nextSliderAnimation = "animate__fadeInRight";
-                }
-                isSliderInTransition = true;
-                var currentSlide = document.querySelector(`#slide-${sliderIndex}`);
-                var currentSliderItem = document.querySelector(`#slider-item-${sliderIndex}`);
-                var nextSlide = document.querySelector(`#slide-${sliderIndexToJumpTo}`);
-                var nextSliderItem = document.querySelector(`#slider-item-${sliderIndexToJumpTo}`);
-
-                currentSliderItem.classList.remove('active');
-                nextSliderItem.classList.add('active');
-                if(sliderIndexToJumpTo == sliderMaxIndex) {
-                    elementHook.nextSlidebutton.classList.add('disabled');
-                } else {
-                    elementHook.nextSlidebutton.classList.remove('disabled');
-                } 
-                if(sliderIndexToJumpTo == sliderMinIndex) {
-                    elementHook.previousSlidebutton.classList.add('disabled');
-                } else {
-                    elementHook.previousSlidebutton.classList.remove('disabled');
-                }
-
-                currentSlide.classList.add(currentSliderAnimation);
-                setTimeout(() => {
-                    currentSlide.classList.add('d-none');
-                    currentSlide.classList.remove(currentSliderAnimation);
-                    nextSlide.classList.remove('d-none');
-                    nextSlide.classList.add(nextSliderAnimation);
-                    setTimeout(() => {
-                        nextSlide.classList.remove(nextSliderAnimation);
-                    }, speed * 1000);
-                    
-                    if(sliderIndexToJumpTo == sliderMinIndex) {
-                        elementHook.slider.classList.add('animate__fadeOutUp');
-                        setTimeout(() => {
-                            elementHook.slider.classList.add('d-none');
-                            elementHook.slider.classList.remove('animate__fadeOutUp');
-                        }, speed * 1000);
-                    } else if (sliderIndex == sliderMinIndex) {
-                        elementHook.slider.classList.remove('d-none');
-                        elementHook.slider.classList.add('d-flex');
-                        elementHook.slider.classList.add('animate__fadeInDown');
-                        setTimeout(() => {
-                            elementHook.slider.classList.remove('animate__fadeInDown');
-                        }, speed * 1000);
-                    }
-                    sliderIndex = sliderIndexToJumpTo;
-                }, speed * 1000);
-                setTimeout(() => {
-                    isSliderInTransition = false;
-                }, speed * 2000);
-                return `Transitioned from ${sliderIndex} to ${sliderIndexToJumpTo}`;
-            }
-
-            const previousSlide = () => {
-                jumpSlide(sliderIndex - 1);
-            }
-
-            const nextSlide = () => {
-                jumpSlide(sliderIndex + 1);
-            }
-
-            const initializeSlides = () => {
-                const uploadButton = document.querySelector('#upload-button');
-                const slider = document.querySelector('#slider');
-                    const sliderItem2 = document.querySelector('#slider-item-2');
-                    const sliderItem3 = document.querySelector('#slider-item-3');
-                    const sliderItem4 = document.querySelector('#slider-item-4');
-                    const sliderItem5 = document.querySelector('#slider-item-5');
-                const slide1 = document.querySelector('#slide-1');
-                const slide2 = document.querySelector('#slide-2');
-                const nextSlidebutton = document.querySelector('#next-slide-button');
-                const previousSlidebutton = document.querySelector('#previous-slide-button');
-                elementHook = {
-                    uploadButton: uploadButton,
-                    slider: slider,
-                        sliderItem2: sliderItem2,
-                        sliderItem3: sliderItem3,
-                        sliderItem4: sliderItem4,
-                        sliderItem5: sliderItem5,
-                    slide1: slide1,
-                    slide2: slide2,
-                    nextSlidebutton: nextSlidebutton,
-                    previousSlidebutton: previousSlidebutton
-                }
-                uploadButton.addEventListener('click', nextSlide);
-                nextSlidebutton.addEventListener('click', nextSlide);
-                previousSlidebutton.addEventListener('click', previousSlide);
-            }
-
-            document.addEventListener("DOMContentLoaded", initializeSlides);
-        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -178,11 +70,17 @@
                     </div>
                 </div>
                 <div id="drop-box" class="d-flex flex-row justify-content-center my-5 animate__fadeIn">
-                    <div class="p-5 border border-1 d-flex flex-column justify-content-center dropbox-section">
+                    <div id="drop-box-block" class="d-none d-flex flex-column justify-content-center position-absolute bg-black bg-opacity-75 drop-box-block">
+                        <div class="d-flex flex-row justify-content-center animate__bounce animate__loopForever">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="32" width="32" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M2 334.5c-3.8 8.8-2 19 4.6 26l136 144c4.5 4.8 10.8 7.5 17.4 7.5s12.9-2.7 17.4-7.5l136-144c6.6-7 8.4-17.2 4.6-26s-12.5-14.5-22-14.5l-72 0 0-288c0-17.7-14.3-32-32-32L128 0C110.3 0 96 14.3 96 32l0 288-72 0c-9.6 0-18.2 5.7-22 14.5z"/></svg>
+                        </div>
+                        <p class="fs-5 fw-bold m-0 text-center">Drop Here</p>
+                    </div>
+                    <div class="p-5 border border-1 d-flex flex-column justify-content-center drop-box-section">
                         <div class="text text-center mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="64" width="64" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z"/></svg>
                         </div>
-                        <p class="m-0 text-center">Drag your dataset in this section</p>
+                        <p class="m-0 text-center">Drag your dataset file in this section</p>
                         <div class="d-flex flex-row mt-2 mb-3">
                             <div class="flex-grow-1"><hr></div>
                             <p class="m-0 mx-2 align-self-center fw-light">OR</p>

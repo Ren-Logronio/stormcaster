@@ -1,5 +1,16 @@
 
+
+
+document.addEventListener('DOMContentLoaded', ()=> {
+    initializeSlides();
+    initializeDropBox();
+    console.log("elementHooks:");
+    console.log(elementHook);
+});
+
+
 /*
+
 const { dialog } = require('@electron/remote');
 const fs = require('fs');
 console.log("Testing remote")
@@ -46,7 +57,6 @@ const openCSVFile = (filePath, elements) => {
 
         
 document.addEventListener('DOMContentLoaded', ()=> {
-    const uploadButton = document.getElementById('upload-button');
     const errorText = document.getElementById('error-text');
     const analysisDescription = document.getElementById('analysis-description');
 

@@ -50,8 +50,13 @@ p, *, .text {
     background: linear-gradient(180deg, #000f49 0%, #000413 100%);
 }
 
-.dropbox-section {
+.drop-box-section {
     border: 1px dashed !important;
+    min-width: 510px;
+    min-height: 300px;
+}
+
+.drop-box-block {
     min-width: 510px;
     min-height: 300px;
 }
@@ -153,4 +158,8 @@ p, *, .text {
     100% {
         transform: translate(24px, 0);
     }
+}
+
+.animate__loopForever {
+    animation-iteration-count: infinite !important;
 }

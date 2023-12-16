@@ -1,4 +1,4 @@
-var elementHook = {};
+
 var isSliderInTransition = false;
 var sliderIndex = 1;
 const sliderMinIndex = 1;
@@ -99,9 +99,11 @@ const initializeSlides = () => {
         slide1: slide1,
         slide2: slide2,
         nextSlidebutton: nextSlidebutton,
-        previousSlidebutton: previousSlidebutton
+        previousSlidebutton: previousSlidebutton,
     }
+    elementHook.inputs.push(uploadButton, nextSlidebutton, previousSlidebutton);
     uploadButton.addEventListener('click', nextSlide);
     nextSlidebutton.addEventListener('click', nextSlide);
     previousSlidebutton.addEventListener('click', previousSlide);
 }
+
