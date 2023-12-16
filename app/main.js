@@ -5,15 +5,15 @@ const path = require('node:path');
 
 require('@electron/remote/main').initialize();
 
-const DEBUG = true;
+const DEBUG = false;
 
 const createWindow = () => {
     const win = new BrowserWindow({
         title: 'Stormcaster',
         icon: './public/icon.png',
         frame: true,
-        minWidth: 400,
-        minHeight: 300,
+        minWidth: 800,
+        minHeight: 600,
         webPreferences: {
             nodeIntegration: true,
             nodeIntegrationInWorker: true,

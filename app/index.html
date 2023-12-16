@@ -11,34 +11,256 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./node_modules/animate.css/animate.min.css">
         <style>
+            :root {
+                --text-color: white;
+                --background-color-primary: #88BBDC;
+                --background-color-success: #88DCB8;
+                --background-color-grey: #a3a3a3;
+            }
+
+            @font-face {
+                font-family: 'Raleway';
+                src: url('./public/font/Raleway-VariableFont_wght.ttf') format('truetype'), 
+                    url('./public/font/Raleway-Italic-VariableFont_wght.ttf') format('truetype'),
+            }
 
             * {
                 box-sizing: border-box;
-                animation: all linear 1s;
+                animation: all 1s;
+                font-family: 'Raleway', sans-serif;
+                animation-duration: 1s;
             }
 
             button {
                 all: unset;
-                
             }
 
+            p, *, .text {
+                color: var(--text-color) !important;
+            }
+
+            .bg-gradient-darkblue {
+                background: linear-gradient(180deg, #000A30 0%, #000413 100%);
+            }
+
+            .dropbox-section {
+                border: 1px dashed !important;
+                min-width: 510px;
+                min-height: 300px;
+            }
+
+            #slider {
+                top: 15%;
+                max-width: 650px;
+            }
+            
+            .slider-item {
+                background-color: var(--background-color-grey);
+            }
+
+            .slider-item.active {
+                background-color: var(--background-color-primary);
+            }
         </style>
-        <script src="./renderer.js"></script>
+        <script src="./renderer.js" defer></script>
+        <script src="./node_modules/bootstrap/js/index.umd.js" defer></script>
+        <script defer>
+            var elementHook;
+            var sliderIndex = 1;
+            const sliderMinIndex = 1;
+            const sliderMaxIndex = 6;
+            const speed = 0.9;
+
+            const startSlider = () => {
+                elementHook.slide1.classList.add('animate__fadeOutLeft');
+                setTimeout(() => {
+                    elementHook.slide1.classList.add('d-none');
+                    elementHook.slide1.classList.remove('animate__fadeOutLeft');
+                    elementHook.slide2.classList.remove('d-none');
+                    elementHook.slide2.classList.add('animate__fadeInRight');
+                    setTimeout(() => {
+                        elementHook.slide2.classList.remove('animate__fadeInRight');
+                    }, speed * 1000);
+                    elementHook.slider.classList.remove('d-none');
+                    elementHook.slider.classList.add('d-flex');
+                    elementHook.slider.classList.add('animate__fadeInDown');
+                    elementHook.sliderItem2.classList.add('active');
+                    sliderIndex = 2;
+                }, speed * 1000);
+            };
+
+            const previousSlide = () => {
+                if (sliderIndex == sliderMinIndex) {
+                    return;
+                }
+                var currentSlide = document.querySelector(`#slide-${sliderIndex}`);
+                var currentSliderItem = document.querySelector(`#slider-item-${sliderIndex}`);
+                var previousSlide = document.querySelector(`#slide-${sliderIndex - 1}`);
+                var previousSliderItem = document.querySelector(`#slider-item-${sliderIndex - 1}`);
+                currentSlide.classList.add('animate__fadeOutRight');
+                setTimeout(() => {
+                    currentSlide.classList.add('d-none');
+                    currentSlide.classList.remove('animate__fadeOutRight');
+                    previousSlide.classList.remove('d-none');
+                    previousSlide.classList.add('animate__fadeInLeft');
+                    setTimeout(() => {
+                        previousSlide.classList.remove('animate__fadeInLeft');
+                    }, speed * 1000);
+                    currentSliderItem.classList.remove('active');
+                    previousSliderItem.classList.add('active');
+                    if(sliderIndex == sliderMinIndex + 1) {
+                        elementHook.slider.classList.add('animate__fadeOutUp');
+                        setTimeout(() => {
+                            elementHook.slider.classList.add('d-none');
+                            elementHook.slider.classList.remove('animate__fadeOutUp');
+                        }, speed * 1000);
+                    }
+                    sliderIndex--;
+                }, speed * 1000);
+            }
+
+            const nextSlide = () => {
+                if (sliderIndex === sliderMaxIndex) {
+                    return;
+                }
+                var currentSlide = document.querySelector(`#slide-${sliderIndex}`);
+                var currentSliderItem = document.querySelector(`#slider-item-${sliderIndex}`);
+                var nextSlide = document.querySelector(`#slide-${sliderIndex + 1}`);
+                var nextSliderItem = document.querySelector(`#slider-item-${sliderIndex + 1}`);
+                currentSlide.classList.add('animate__fadeOutLeft');
+                setTimeout(() => {
+                    currentSlide.classList.add('d-none');
+                    currentSlide.classList.remove('animate__fadeOutLeft');
+                    nextSlide.classList.remove('d-none');
+                    nextSlide.classList.add('animate__fadeInRight');
+                    setTimeout(() => {
+                        nextSlide.classList.remove('animate__fadeInRight');
+                    }, speed * 1000);
+                    currentSliderItem.classList.remove('active');
+                    nextSliderItem.classList.add('active');
+                    sliderIndex++;
+                }, speed * 1000);
+            }
+
+            const initializeSlides = () => {
+                const uploadButton = document.querySelector('#upload-button');
+                const slider = document.querySelector('#slider');
+                    const sliderItem2 = document.querySelector('#slider-item-2');
+                    const sliderItem3 = document.querySelector('#slider-item-3');
+                    const sliderItem4 = document.querySelector('#slider-item-4');
+                    const sliderItem5 = document.querySelector('#slider-item-5');
+                const slide1 = document.querySelector('#slide-1');
+                const slide2 = document.querySelector('#slide-2');
+                const nextSlidebuttons = document.querySelectorAll('.next-button');
+                const previousSlidebuttons = document.querySelectorAll('.previous-button');
+                elementHook = {
+                    uploadButton: uploadButton,
+                    slider: slider,
+                        sliderItem2: sliderItem2,
+                        sliderItem3: sliderItem3,
+                        sliderItem4: sliderItem4,
+                        sliderItem5: sliderItem5,
+                    slide1: slide1,
+                    slide2: slide2,
+                    nextSlidebuttons: nextSlidebuttons
+                }
+                uploadButton.addEventListener('click', startSlider);
+                nextSlidebuttons.forEach((button) => {
+                    button.addEventListener('click', nextSlide);
+                });
+                previousSlidebuttons.forEach((button) => {
+                    button.addEventListener('click', previousSlide);
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", initializeSlides);
+        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div class="min-vh-100 position-relative">
-            <div>
-                
+        <div class="d-flex flex-column justify-content-center min-vh-100 position-relative z-2 overflow-hidden">
+            <div id="slider" class="d-none flex-row w-100 justify-content-evenly position-absolute start-50 translate-middle">
+                <span id="slider-item-1"></span>
+                <p id="slider-item-2" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Currate</p>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                <p id="slider-item-3" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Summarize</p>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                <p id="slider-item-4" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Describe</p>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                <p id="slider-item-5" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Predict</p>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                <p id="slider-item-6" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Done</p>
             </div>
-            <div class>
-                <button id="upload-button" class="btn btn-primary">Upload File</button>
+            <div id="slide-1" class="animate__fadeInUp">
+                <div class="d-flex flex-column justify-content-center animate__slideInDown">
+                    <p class="text-center h1 m-0 mb-1 fw-bolder fst-italic">StormCaster</p>
+                    <div class="d-flex flex-row justify-content-center fw-light fs-6">
+                        <span>Reinhart Logronio</span>
+                        <span class="mx-4">Carren Mae Yongco</span>
+                        <span>Louvilla Limpin</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-center my-5 animate__fadeIn">
+                    <div class="p-5 border border-1 d-flex flex-column justify-content-center dropbox-section">
+                        <div class="text text-center mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="64" width="64" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z"/></svg>
+                        </div>
+                        <p class="m-0 text-center">Drag your dataset in this section</p>
+                        <div class="d-flex flex-row mt-2 mb-3">
+                            <div class="flex-grow-1"><hr></div>
+                            <p class="m-0 mx-2 align-self-center fw-light">OR</p>
+                            <div class="flex-grow-1"><hr></div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-center">
+                            <button id="upload-button" class="btn btn-primary align-self-center rounded-1 border-0">
+                                <p class="m-0 text-center">Upload</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate__slideInUp">
+                    <p class="text-center m-0">Final Project for ITD105-Data Analytics</p>
+                </div>
+            </div>
+            <div id="slide-2" class="d-none">
+                <p class="h1 fw-bolder text-center">Currating</p>
+                <div class="d-flex flex-row justify-content-center">
+                    <button class="previous-button align-self-center btn btn-primary">Previous</button>
+                    <button class="next-button align-self-center btn btn-primary">Next</button>
+                </div>
+            </div>
+            <div id="slide-3" class="d-none">
+                <p class="h1 fw-bolder text-center">Summary</p>
+                <div class="d-flex flex-row justify-content-center">
+                    <button class="previous-button align-self-center btn btn-primary">Previous</button>
+                    <button class="next-button align-self-center btn btn-primary">Next</button>
+                </div>
+            </div>
+            <div id="slide-4" class="d-none">
+                <p class="h1 fw-bolder text-center">Descriptive Analysis</p>
+                <div class="d-flex flex-row justify-content-center">
+                    <button class="previous-button align-self-center btn btn-primary">Previous</button>
+                    <button class="next-button align-self-center btn btn-primary">Next</button>
+                </div>
+            </div>
+            <div id="slide-5" class="d-none">
+                <p class="h1 fw-bolder text-center">Predictive Analysis</p>
+                <div class="d-flex flex-row justify-content-center">
+                    <button class="previous-button align-self-center btn btn-primary">Previous</button>
+                    <button class="next-button align-self-center btn btn-primary">Next</button>
+                </div>
+            </div>
+            <div id="slide-6" class="d-none">
+                <p class="h1 fw-bolder text-center">Thank You</p>
+                <div class="d-flex flex-row justify-content-center">
+                    <button class="previous-button align-self-center btn btn-primary">Previous</button>
+                </div>
             </div>
         </div>
-        <p id="error-text"></p>
-        <div class="min-vh-100 min-vw-100 position-absolute top-0 start-0"></div>
+        <div class="min-vh-100 min-vw-100 position-fixed top-0 start-0 z-0 bg-gradient-darkblue"></div>
     </body>
 </html>

@@ -1,4 +1,6 @@
 
+/*
+
 const { dialog } = require('@electron/remote');
 const fs = require('fs');
 console.log("Testing remote")
@@ -61,3 +63,5 @@ errorText
         openFileDialog(elements);
     });
 });
+
+*/
