@@ -1,0 +1,114 @@
+:root {
+    --text-color: white;
+    --background-color-primary: #88BBDC;
+    --background-color-success: #88DCB8;
+    --background-color-grey: #a3a3a3;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../../public/font/Raleway-VariableFont_wght.ttf') format('truetype'), 
+        url('../../public/font/Raleway-Italic-VariableFont_wght.ttf') format('truetype'),
+}
+
+* {
+    box-sizing: border-box;
+    animation: all 1s;
+    font-family: 'Raleway', sans-serif;
+    animation-duration: 1s;
+}
+
+button {
+    all: unset;
+}
+
+p, *, .text {
+    color: var(--text-color) !important;
+}
+
+.bg-gradient-darkblue {
+    background: linear-gradient(180deg, #000A30 0%, #000413 100%);
+}
+
+.dropbox-section {
+    border: 1px dashed !important;
+    min-width: 510px;
+    min-height: 300px;
+}
+
+#slider {
+    top: 15%;
+    max-width: 650px;
+}
+
+.slider-item {
+    background-color: var(--background-color-grey);
+}
+
+.slider-item.active {
+    background-color: var(--background-color-primary);
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+    }
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(24px, 0);
+    }
+}

@@ -12,58 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./node_modules/animate.css/animate.min.css">
-        <style>
-            :root {
-                --text-color: white;
-                --background-color-primary: #88BBDC;
-                --background-color-success: #88DCB8;
-                --background-color-grey: #a3a3a3;
-            }
-
-            @font-face {
-                font-family: 'Raleway';
-                src: url('./public/font/Raleway-VariableFont_wght.ttf') format('truetype'), 
-                    url('./public/font/Raleway-Italic-VariableFont_wght.ttf') format('truetype'),
-            }
-
-            * {
-                box-sizing: border-box;
-                animation: all 1s;
-                font-family: 'Raleway', sans-serif;
-                animation-duration: 1s;
-            }
-
-            button {
-                all: unset;
-            }
-
-            p, *, .text {
-                color: var(--text-color) !important;
-            }
-
-            .bg-gradient-darkblue {
-                background: linear-gradient(180deg, #000A30 0%, #000413 100%);
-            }
-
-            .dropbox-section {
-                border: 1px dashed !important;
-                min-width: 510px;
-                min-height: 300px;
-            }
-
-            #slider {
-                top: 15%;
-                max-width: 650px;
-            }
-            
-            .slider-item {
-                background-color: var(--background-color-grey);
-            }
-
-            .slider-item.active {
-                background-color: var(--background-color-primary);
-            }
-        </style>
+        <link rel="stylesheet" href="./src/styles/style.css">
         <script src="./renderer.js" defer></script>
         <script src="./node_modules/bootstrap/js/index.umd.js" defer></script>
         <script defer>
@@ -90,6 +39,29 @@
                     sliderIndex = 2;
                 }, speed * 1000);
             };
+
+            const jumpSlide = (sliderIndexToJumpTo) => {
+                if (sliderIndexToJumpTo < sliderMinIndex || sliderIndexToJumpTo > sliderMaxIndex) {
+                    return;
+                }
+                var currentSlide = document.querySelector(`#slide-${sliderIndex}`);
+                var currentSliderItem = document.querySelector(`#slider-item-${sliderIndex}`);
+                var nextSlide = document.querySelector(`#slide-${sliderIndexToJumpTo}`);
+                var nextSliderItem = document.querySelector(`#slider-item-${sliderIndexToJumpTo}`);
+                currentSlide.classList.add('animate__fadeOutLeft');
+                setTimeout(() => {
+                    currentSlide.classList.add('d-none');
+                    currentSlide.classList.remove('animate__fadeOutLeft');
+                    nextSlide.classList.remove('d-none');
+                    nextSlide.classList.add('animate__fadeInRight');
+                    setTimeout(() => {
+                        nextSlide.classList.remove('animate__fadeInRight');
+                    }, speed * 1000);
+                    currentSliderItem.classList.remove('active');
+                    nextSliderItem.classList.add('active');
+                    sliderIndex = sliderIndexToJumpTo;
+                }, speed * 1000);
+            }
 
             const previousSlide = () => {
                 if (sliderIndex == sliderMinIndex) {
@@ -185,15 +157,25 @@
         <div class="d-flex flex-column justify-content-center min-vh-100 position-relative z-2 overflow-hidden">
             <div id="slider" class="d-none flex-row w-100 justify-content-evenly position-absolute start-50 translate-middle">
                 <span id="slider-item-1"></span>
-                <p id="slider-item-2" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Currate</p>
+                <p id="slider-item-2" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                    Currate
+                </p>
                 <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                <p id="slider-item-3" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Summarize</p>
+                <p id="slider-item-3" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                    Summarize
+                </p>
                 <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                <p id="slider-item-4" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Describe</p>
+                <p id="slider-item-4" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                    Describe
+                </p>
                 <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                <p id="slider-item-5" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Predict</p>
+                <p id="slider-item-5" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                    Predict
+                </p>
                 <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                <p id="slider-item-6" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">Done</p>
+                <p id="slider-item-6" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                    Done
+                </p>
             </div>
             <div id="slide-1" class="animate__fadeInUp">
                 <div class="d-flex flex-column justify-content-center animate__slideInDown">
@@ -227,6 +209,9 @@
                 </div>
             </div>
             <div id="slide-2" class="d-none">
+                <div class="d-flex flex-row justify-content-center">
+                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                </div> 
                 <p class="h1 fw-bolder text-center">Currating</p>
                 <div class="d-flex flex-row justify-content-center">
                     <button class="previous-button align-self-center btn btn-primary">Previous</button>
