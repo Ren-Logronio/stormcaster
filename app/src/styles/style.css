@@ -27,7 +27,7 @@ p, *, .text {
 }
 
 .bg-gradient-darkblue {
-    background: linear-gradient(180deg, #000A30 0%, #000413 100%);
+    background: linear-gradient(180deg, #000f49 0%, #000413 100%);
 }
 
 .dropbox-section {
