@@ -11,6 +11,26 @@
         url('../../public/font/Raleway-Italic-VariableFont_wght.ttf') format('truetype'),
 }
 
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #8f54a0 transparent;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+  }
+
 * {
     box-sizing: border-box;
     animation: all 1s;
@@ -37,8 +57,30 @@ p, *, .text {
 }
 
 #slider {
-    top: 15%;
-    max-width: 650px;
+    background: linear-gradient(180deg, #000f49 0%, #000f49 50%, #000f4900 100%);
+    z-index: 200;
+}
+
+#slider > div {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+    min-width: 624px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.slide {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.slide > div.content {
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    height: 100vh !important;
+    width: 100% !important;
+    align-self: flex-end !important;
+    z-index: 50;
 }
 
 .slider-item {

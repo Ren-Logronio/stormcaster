@@ -89,61 +89,10 @@
 
             const previousSlide = () => {
                 jumpSlide(sliderIndex - 1);
-                /* Deprecated
-                if (sliderIndex == sliderMinIndex) {
-                    return;
-                }
-                var currentSlide = document.querySelector(`#slide-${sliderIndex}`);
-                var currentSliderItem = document.querySelector(`#slider-item-${sliderIndex}`);
-                var previousSlide = document.querySelector(`#slide-${sliderIndex - 1}`);
-                var previousSliderItem = document.querySelector(`#slider-item-${sliderIndex - 1}`);
-                currentSlide.classList.add('animate__fadeOutRight');
-                setTimeout(() => {
-                    currentSlide.classList.add('d-none');
-                    currentSlide.classList.remove('animate__fadeOutRight');
-                    previousSlide.classList.remove('d-none');
-                    previousSlide.classList.add('animate__fadeInLeft');
-                    setTimeout(() => {
-                        previousSlide.classList.remove('animate__fadeInLeft');
-                    }, speed * 1000);
-                    currentSliderItem.classList.remove('active');
-                    previousSliderItem.classList.add('active');
-                    if(sliderIndex == sliderMinIndex + 1) {
-                        elementHook.slider.classList.add('animate__fadeOutUp');
-                        setTimeout(() => {
-                            elementHook.slider.classList.add('d-none');
-                            elementHook.slider.classList.remove('animate__fadeOutUp');
-                        }, speed * 1000);
-                    }
-                    sliderIndex--;
-                }, speed * 1000);
-                */
             }
 
             const nextSlide = () => {
                 jumpSlide(sliderIndex + 1);
-                /*
-                if (sliderIndex === sliderMaxIndex) {
-                    return;
-                }
-                var currentSlide = document.querySelector(`#slide-${sliderIndex}`);
-                var currentSliderItem = document.querySelector(`#slider-item-${sliderIndex}`);
-                var nextSlide = document.querySelector(`#slide-${sliderIndex + 1}`);
-                var nextSliderItem = document.querySelector(`#slider-item-${sliderIndex + 1}`);
-                currentSlide.classList.add('animate__fadeOutLeft');
-                setTimeout(() => {
-                    currentSlide.classList.add('d-none');
-                    currentSlide.classList.remove('animate__fadeOutLeft');
-                    nextSlide.classList.remove('d-none');
-                    nextSlide.classList.add('animate__fadeInRight');
-                    setTimeout(() => {
-                        nextSlide.classList.remove('animate__fadeInRight');
-                    }, speed * 1000);
-                    currentSliderItem.classList.remove('active');
-                    nextSliderItem.classList.add('active');
-                    sliderIndex++;
-                }, speed * 1000);
-                */
             }
 
             const initializeSlides = () => {
@@ -182,48 +131,53 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div class="d-flex flex-column justify-content-center min-vh-100 position-relative z-2 overflow-hidden">
-            <div id="slider" class="d-none flex-column w-100 justify-content-evenly position-absolute start-50 translate-middle">
-                <div class="d-flex flex-row">
-                    <span id="slider-item-1"></span>
-                    <p id="slider-item-2" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
-                        Currate
-                    </p>
-                    <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                    <p id="slider-item-3" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
-                        Summarize
-                    </p>
-                    <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                    <p id="slider-item-4" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
-                        Describe
-                    </p>
-                    <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                    <p id="slider-item-5" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
-                        Predict
-                    </p>
-                    <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
-                    <p id="slider-item-6" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
-                        Done
-                    </p>
-                </div>
-                <div class="d-flex flex-row justify-content-between mt-2 rounded-1">
-                    <button id="previous-slide-button" class="previous-button align-self-center border-0 btn btn-outline-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="16" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"/></svg>
-                    </button>
-                    <button id="next-slide-button" class="next-button align-self-center border-0 btn btn-outline-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="16" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
-                    </button>
+            <div id="slider" class="d-none flex-column bg-dark-blue w-100 justify-content-evenly position-absolute start-50 top-0 translate-middle-x">
+                <div>
+                    <div class="d-flex flex-row">
+                        <span id="slider-item-1"></span>
+                        <p id="slider-item-2" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                            Currate
+                        </p>
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                        <p id="slider-item-3" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                            Summarize
+                        </p>
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                        <p id="slider-item-4" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                            Describe
+                        </p>
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                        <p id="slider-item-5" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                            Predict
+                        </p>
+                        <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
+                        <p id="slider-item-6" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
+                            Done
+                        </p>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-2 rounded-1">
+                        <button id="previous-slide-button" class="previous-button align-self-center border-0 btn btn-outline-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="16" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"/></svg>
+                        </button>
+                        <button id="next-slide-button" class="next-button align-self-center border-0 btn btn-outline-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16" width="16" viewBox="0 0 256 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div id="slide-1" class="animate__fadeInUp">
                 <div class="d-flex flex-column justify-content-center animate__slideInDown">
-                    <p class="text-center h1 m-0 mb-1 fw-bolder fst-italic">StormCaster</p>
+                    <div class="d-flex flex-row justify-content-center">
+                        <img src="./public/icon.png" alt="logo" height="64" width="64">
+                        <p class="text-center h1 m-0 mb-1 fw-bolder align-self-center fst-italic">StormCaster</p>
+                    </div>
                     <div class="d-flex flex-row justify-content-center fw-light fs-6">
                         <span>Reinhart Logronio</span>
                         <span class="mx-4">Carren Mae Yongco</span>
                         <span>Louvilla Limpin</span>
                     </div>
                 </div>
-                <div class="d-flex flex-row justify-content-center my-5 animate__fadeIn">
+                <div id="drop-box" class="d-flex flex-row justify-content-center my-5 animate__fadeIn">
                     <div class="p-5 border border-1 d-flex flex-column justify-content-center dropbox-section">
                         <div class="text text-center mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="64" width="64" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M448 80v48c0 44.2-100.3 80-224 80S0 172.2 0 128V80C0 35.8 100.3 0 224 0S448 35.8 448 80zM393.2 214.7c20.8-7.4 39.9-16.9 54.8-28.6V288c0 44.2-100.3 80-224 80S0 332.2 0 288V186.1c14.9 11.8 34 21.2 54.8 28.6C99.7 230.7 159.5 240 224 240s124.3-9.3 169.2-25.3zM0 346.1c14.9 11.8 34 21.2 54.8 28.6C99.7 390.7 159.5 400 224 400s124.3-9.3 169.2-25.3c20.8-7.4 39.9-16.9 54.8-28.6V432c0 44.2-100.3 80-224 80S0 476.2 0 432V346.1z"/></svg>
@@ -245,23 +199,58 @@
                     <p class="text-center m-0">Final Project for ITD105-Data Analytics</p>
                 </div>
             </div>
-            <div id="slide-2" class="d-none">
-                <div class="d-flex flex-row justify-content-center">
-                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                </div> 
-                <p class="h1 fw-bolder text-center">Currating</p>
+            <div id="slide-2" class="d-none d-flex flex-column slide flex-grow-1 justify-content-center">
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                    </div> 
+                    <p class="h1 fw-bolder text-center">Currating</p>
+                </div>
             </div>
-            <div id="slide-3" class="d-none">
-                <p class="h1 fw-bolder text-center">Summary</p>
+            <div id="slide-3" class="d-none d-flex slide">
+                <div class="content">
+                    <div>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                        <p class="h1 fw-bolder text-center">Summary</p>
+                    </div>
+                </div>
             </div>
-            <div id="slide-4" class="d-none">
-                <p class="h1 fw-bolder text-center">Descriptive Analysis</p>
+            <div id="slide-4" class="d-none d-flex slide">
+                <div class="content">
+                    <div class="d-flex flex-column justify-content-center"><p class="h1 fw-bolder text-center">Descriptive Analysis</p></div>
+                </div>
             </div>
-            <div id="slide-5" class="d-none">
-                <p class="h1 fw-bolder text-center">Predictive Analysis</p>
+            <div id="slide-5" class="d-none d-flex slide ">
+                <div class="content">
+                    <div class="d-flex flex-column justify-content-center"><p class="h1 fw-bolder text-center">Predictive Analysis</p></div>
+                </div>
             </div>
-            <div id="slide-6" class="d-none">
-                <p class="h1 fw-bolder text-center">Thank You</p>
+            <div id="slide-6" class="d-none d-flex slide">
+                <div class="content">
+                    <div class="d-flex flex-column justify-content-center"><p class="h1 fw-bolder text-center">Thank You</p></div>
+                </div>
             </div>
         </div>
         <div class="min-vh-100 min-vw-100 position-fixed top-0 start-0 z-0 bg-gradient-darkblue"></div>
