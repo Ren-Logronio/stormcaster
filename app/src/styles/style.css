@@ -42,6 +42,10 @@ button {
     all: unset;
 }
 
+table, table td, table th {
+    /* color:#000413 !important; */
+}
+
 p, *, .text {
     color: var(--text-color) !important;
 }
@@ -59,6 +63,7 @@ p, *, .text {
 .drop-box-block {
     min-width: 510px;
     min-height: 300px;
+    pointer-events: none;
 }
 
 #slider {

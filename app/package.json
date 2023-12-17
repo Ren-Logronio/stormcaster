@@ -24,7 +24,9 @@
     "pandas-js": "^0.2.4",
     "sass": "^1.69.5",
     "scss": "^0.2.4",
+    "seedrandom": "^3.0.5",
     "typescript": "^5.3.2",
+    "uuid": "^9.0.1",
     "yarn": "^1.22.21"
   },
   "devDependencies": {

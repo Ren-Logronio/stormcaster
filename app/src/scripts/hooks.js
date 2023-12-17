@@ -1,4 +1,5 @@
 var elementHook = {
     inputs: []
 };
-console.log(elementHook);
+var dataFrameHook;
+var conditionHook = {};

@@ -2,7 +2,7 @@
 var isSliderInTransition = false;
 var sliderIndex = 1;
 const sliderMinIndex = 1;
-const sliderMaxIndex = 6;
+const sliderMaxIndex = 5;
 const speed = 0.9;
 
 const jumpSlide = (sliderIndexToJumpTo) => {
@@ -70,6 +70,9 @@ const jumpSlide = (sliderIndexToJumpTo) => {
 }
 
 const previousSlide = () => {
+    if (conditionHook.isFileLoaded && sliderIndex == 3) {
+        jumpSlide(1);
+    }
     jumpSlide(sliderIndex - 1);
 }
 
@@ -78,7 +81,6 @@ const nextSlide = () => {
 }
 
 const initializeSlides = () => {
-    const uploadButton = document.querySelector('#upload-button');
     const slider = document.querySelector('#slider');
         const sliderItem2 = document.querySelector('#slider-item-2');
         const sliderItem3 = document.querySelector('#slider-item-3');
@@ -90,7 +92,6 @@ const initializeSlides = () => {
     const previousSlidebutton = document.querySelector('#previous-slide-button');
     elementHook = {
         ...elementHook,
-        uploadButton: uploadButton,
         slider: slider,
             sliderItem2: sliderItem2,
             sliderItem3: sliderItem3,
@@ -101,8 +102,7 @@ const initializeSlides = () => {
         nextSlidebutton: nextSlidebutton,
         previousSlidebutton: previousSlidebutton,
     }
-    elementHook.inputs.push(uploadButton, nextSlidebutton, previousSlidebutton);
-    uploadButton.addEventListener('click', nextSlide);
+    elementHook.inputs.push(nextSlidebutton, previousSlidebutton);
     nextSlidebutton.addEventListener('click', nextSlide);
     previousSlidebutton.addEventListener('click', previousSlide);
 }

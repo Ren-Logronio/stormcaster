@@ -5,15 +5,15 @@ const path = require('node:path');
 
 require('@electron/remote/main').initialize();
 
-const DEBUG = false;
+const DEBUG = true;
 
 const createWindow = () => {
     const win = new BrowserWindow({
         title: 'Stormcaster',
         icon: './public/icon.png',
         frame: true,
-        minWidth: 800,
-        minHeight: 600,
+        minWidth: 1600,
+        minHeight: 900,
         webPreferences: {
             nodeIntegration: true,
             nodeIntegrationInWorker: true,
@@ -23,7 +23,8 @@ const createWindow = () => {
         }
     })
     win.setMenuBarVisibility(false);
-    win.setAspectRatio(4/3);
+    win.setAspectRatio(16/9);
+    win.maximize();
     win.loadFile('index.html');
     if(DEBUG) win.webContents.openDevTools();
     require('@electron/remote/main').enable(win.webContents);
