@@ -42,8 +42,17 @@ button {
     all: unset;
 }
 
+table {
+    max-width: 600px;
+}
+
 table, table td, table th {
     /* color:#000413 !important; */
+    font-size: 12px;
+}
+
+table th.sorting::before, table th.sorting::after {
+    color: var(--text-color) !important;
 }
 
 p, *, .text {
@@ -58,6 +67,12 @@ p, *, .text {
     border: 1px dashed !important;
     min-width: 510px;
     min-height: 300px;
+}
+
+.drop-box-section:hover {
+    background-color: #7c7c7c13;
+    border: 1px dashed #7c7c7c !important;
+    cursor: pointer !important;
 }
 
 .drop-box-block {
@@ -77,6 +92,10 @@ p, *, .text {
     min-width: 624px !important;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+.slide-pad {
+    min-height: 13rem !important;
 }
 
 .slide {

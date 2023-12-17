@@ -12,6 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./node_modules/animate.css/animate.min.css">
+        <link rel="stylesheet" href="./node_modules/datatables.net-dt/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="./src/styles/style.css">
         <script src="./src/scripts/hooks.js"></script>
         <script src="./src/scripts/slides.js" defer></script>
@@ -57,7 +58,7 @@
                 <div class="d-flex flex-column justify-content-center animate__slideInDown">
                     <div class="d-flex flex-row justify-content-center">
                         <img src="./public/icon.png" alt="logo" height="64" width="64">
-                        <p class="text-center h1 m-0 mb-1 fw-bolder align-self-center fst-italic">StormCaster</p>
+                        <p class="text-center h1 m-0 pt-3 mb-0 fw-bolder align-self-center fst-italic">StormCaster</p>
                     </div>
                     <div class="d-flex flex-row justify-content-center fw-light fs-6">
                         <span>Reinhart Logronio</span>
@@ -84,7 +85,7 @@
                         </div>
                         <div class="d-flex flex-row justify-content-center">
                             <button id="upload-button" class="btn btn-primary align-self-center rounded-1 border-0">
-                                <p class="m-0 text-center">Upload</p>
+                                <p class="m-0 text-center">Click to Upload</p>
                             </button>
                         </div>
                     </div>
@@ -95,23 +96,26 @@
             </div>
             <div id="slide-2" class="d-none d-flex flex-column slide flex-grow-1 justify-content-center">
                 <div class="d-flex flex-column justify-content-center">
-                    <div class="d-flex flex-row justify-content-center">
+                    <div id="loading-icon" class="d-flex flex-row justify-content-center">
                         <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                    </div> 
+                    </div>
+                    <div id="error-icon" class="d-none d-flex flex-row justify-content-center text-danger animate__flash animate__loopForever">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="red" height="45" width="45" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>
+                    </div>
                     <p class="h1 fw-bolder text-center">Currating</p>
                     <p id="curration-text" class="text-center">Loading Files...</p>
+                    <div id="error-text" class="text-white bg-danger text-center"></div>
                 </div>
             </div>
             <div id="slide-3" class="d-none d-flex slide">
-                <div class="content d-flex flex-column justify-content-center">
+                <div class="content d-flex flex-column justify-content-start">
                     <div>
-                        <div style="height: 500px;"></div>
+                        <div class="slide-pad"></div>
                         <p class="text-center h3 ">Description</p>
-                        <div id="describe-table" class=""></div>
-                        <p class="text-center h3 ">Unfiltered</p>
-                        <div id="data-un-table" class=""></div>
-                        <p class="text-center h3 ">Cleansed</p>
-                        <div id="data-table"></div>
+                        <div id="describe-table" class="d-flex flex-row justify-content-center mb-5"></div>
+                        <p class="text-center h3 ">Data Types</p>
+                        <div id="types-table" class="d-flex flex-row justify-content-center mb-5"></div>
+                        <div class="slide-pad"></div>
                     </div>
                 </div>
             </div>

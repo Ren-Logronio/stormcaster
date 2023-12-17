@@ -1,7 +1,9 @@
 
-const { dialog } = require('@electron/remote');
+const { dialog, BrowserView } = require('@electron/remote');
 const fs = require('fs');
 const dfd = require('danfojs');
+const uuid = require('uuid');
+const DataTable = require('datatables.net-dt')
 
 const fakeLoadTime = 0.001;
 
@@ -23,45 +25,113 @@ const openFileDialog = () => {
             openCSVFile(filePath)
         }
     }).catch(err => {
-        console.error(err);
+        elementHook.errorText = err.stack;
     });
 }
 
 const openCSVFile = (filePath) => {
+    // JUMP TO 2ND (CURRATE) SLIDE
     jumpSlide(2);
+    // A LOT OF CODE YOU DO NOTE NEED TO KNOW
     conditionHook = { ...conditionHook, isFileLoaded: true }
     elementHook.nextSlidebutton.classList.add('disabled');
     elementHook.previousSlidebutton.classList.add('disabled');
     elementHook.dropBox.classList.add('disabled');
+    // A LOT OF CODE YOU DO NOTE NEED TO KNOW
     dfd.readCSV(filePath).then(async (df) => {
-        sampleDataFrame = new dfd.DataFrame([{A: 1, B: 9, C: NaN}, {A: 1, B: 1, C:2}]);
-        sampleDataFrame.dropNa({axis: 1, inplace: true});
-        replaceDataFrameValues('NA', 0, df);
-        // df.plot(elementHook.dataUnTable.id).table();
-        df.fillNa({ columns: ["TROPICALSTORM_FORCE_DIAMETER", "HURRICANE_FORCE_DIAMETER"], value: 0 }, inplace=true);
-        df.dropNa({axis: 0, inplace: true});
-        // df.plot(elementHook.dataTable.id).table();
-        dataFrameHook = {df: df, describe: df.describe()};
-        const table = plotTable(df.describe());
-        elementHook.describeTable.appendChild(table);
-        //df.describe().plot(elementHook.describeTable.id).table();
+        
+        // WAIT FOR THE TRANSITION
         await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // CURRATE STAGE
         elementHook.currationText.innerHTML = "Removing NaN Values...";
         await new Promise(resolve => setTimeout(resolve, fakeLoadTime * 1000));
+            // DATA CLEANSING
+            replaceDataFrameValues('NA', 0, df);
+            df.fillNa({ value: 0 }, inplace=true);
+            df.dropNa({axis: 0, inplace: true});
+            // HOOKING DATAFRAME GLOBALLY
+            dataFrameHook = {...dataFrameHook, df: df,};
+
+        // DESCRIBE STAGE
         elementHook.currationText.innerHTML = "Creating Tables and Graphs...";
         await new Promise(resolve => setTimeout(resolve, fakeLoadTime * 1000));
+            // GENERATING DESCIPRTIVE ANALYSIS
+            await generateDescriptives(df);
+            dataFrameHook = {...dataFrameHook, describe: df.describe(), types: df.ctypes,};
+
         elementHook.currationText.innerHTML = "Training Models...";
         await new Promise(resolve => setTimeout(resolve, fakeLoadTime * 1000));
+
+        // TRANSITION TO DESCRIBE
         jumpSlide(3);
         elementHook.nextSlidebutton.classList.remove('disabled');
     }).catch(err => {
-        console.error(err);
+        conditionHook.isFileLoaded = false;
+        conditionHook = {...conditionHook, currateError: true};
+        elementHook.previousSlidebutton.classList.remove('disabled');
+        elementHook.loadingIcon.classList.add('d-none');
+        elementHook.errorIcon.classList.remove('d-none');
+        elementHook.currationText.innerHTML = 'Failed to fully process';
+        elementHook.errorText.innerHTML = err.stack.replace(/\n/g, '<br>');
     });
 }
 
+const generateDescriptives = async (df) => {
+     // DESCRIBE
+     {
+        const { table, id } = plotTable(df.describe());
+        elementHook.describeTable.innerHTML = "";
+        elementHook.describeTable.appendChild(table);
+        new DataTable(`#${id}`, {
+            searching: false,
+            paging: false,
+            info: false
+        });
+    }
+    // TYPES
+    {
+        const { table, id } = plotTable(df.ctypes);
+        elementHook.typesTable.innerHTML = "";
+        elementHook.typesTable.appendChild(table);
+        new DataTable(`#${id}`, {
+            searching: false,
+            paging: false,
+            info: false
+        });
+    }
+    // NUMBER OF STORMS BY STATUS
+    {
+        
+    }
+    // STORM FREQUENCY BY STATUS
+
+    // Number of Storms by Saffir-Simpson Hurricane Category Calculated from Wind Speed
+
+    // HurrCyclicality
+
+    // HurrSeasonalityByYear
+
+    // STORM PATH
+
+    // TROPICAL STORM FORCE DIAMETER
+
+    // HurricaneStormTracks
+
+    // Storm Genesis
+
+    return;
+}
+
+const generatePredictives = () => {
+
+}
+
 const plotTable = (df) => {
+    const id = uuid.v4();
     var table = document.createElement('table');
-    table.classList.add('table', 'table-sm', 'table-dark', 'mx-5');
+    //table.classList.add('table', 'table-sm', 'table-dark', 'align-self-center');
+    table.id = id;
     var thead = document.createElement('thead');
     var tbody = document.createElement('tbody');
 
@@ -84,11 +154,17 @@ const plotTable = (df) => {
         dataRow.appendChild(indexCell);
         
         const tableData = df.$data[df.$index.indexOf(index)];
-        tableData.forEach(function(data) {
+        if(Array.isArray(tableData)) {
+            tableData.forEach(function(data) {
+                var td = document.createElement('td');
+                td.textContent = data.toFixed(2);
+                dataRow.appendChild(td);
+            });
+        } else {
             var td = document.createElement('td');
-            td.textContent = data.toFixed(2);
+            td.textContent = typeof value === 'number' && !isNaN(value) ? tableData.toFixed(2) : tableData;
             dataRow.appendChild(td);
-        });
+        }
         
 
         tbody.appendChild(dataRow);
@@ -96,24 +172,7 @@ const plotTable = (df) => {
 
     table.appendChild(tbody);
 
-    return table;
-};
-        
-initializeApp = () => {
-    const currationText = document.getElementById('curration-text');
-    const describeTable = document.getElementById('describe-table');
-    const dataTable = document.getElementById('data-table');
-    const dataUnTable = document.getElementById('data-un-table');
-    elementHook = {
-        ...elementHook,
-        currationText: currationText,
-        describeTable: describeTable,
-        dataTable: dataTable,
-        dataUnTable: dataUnTable,
-    }
-    elementHook.uploadButton.addEventListener('click', ()=> {
-        openFileDialog(elementHook);
-    });
+    return {table: table, id: id};
 };
 
 const replaceDataFrameValues = (oldValue, newValue, dataFrame) => {
@@ -130,13 +189,34 @@ const replaceDataFrameValues = (oldValue, newValue, dataFrame) => {
     });
     dataFrame.$setValues(newData);
 };
+        
+initializeApp = () => {
+    const currationText = document.getElementById('curration-text');
+    const errorText = document.getElementById('error-text');
+    const loadingIcon = document.getElementById('loading-icon');
+    const errorIcon = document.getElementById('error-icon');
+    const describeTable = document.getElementById('describe-table');
+    const typesTable = document.getElementById('types-table');
+    elementHook = {
+        ...elementHook,
+        currationText: currationText,
+        describeTable: describeTable,
+        typesTable: typesTable,
+        errorText: errorText,
+        loadingIcon: loadingIcon,
+        errorIcon: errorIcon,
+    }
+    elementHook.dropBox.addEventListener('click', ()=> {
+        openFileDialog(elementHook);
+    });
+};
 
 document.addEventListener('DOMContentLoaded', ()=> {
     initializeSlides();
     initializeDropBox();
     initializeApp();
 
-    openCSVFile(`Z:\\storm-predictive-model-project\\Asia-Pacific-Storm-Tracks\\2001-2022storms\\2001-2022storms.csv`);
+    // openCSVFile(`Z:\\storm-predictive-model-project\\Asia-Pacific-Storm-Tracks\\2001-2022storms\\2001-2022storms.csv`);
     //console.log("elementHooks:");
     //console.log(elementHook);
 });

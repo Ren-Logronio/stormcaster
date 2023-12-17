@@ -70,8 +70,17 @@ const jumpSlide = (sliderIndexToJumpTo) => {
 }
 
 const previousSlide = () => {
-    if (conditionHook.isFileLoaded && sliderIndex == 3) {
+    if (conditionHook.isFileLoaded && sliderIndex == 3 || conditionHook.currateError) {
         jumpSlide(1);
+        if(conditionHook.currateError) {
+            conditionHook.currateError = false;
+            setTimeout(() => {
+                elementHook.loadingIcon.classList.remove('d-none');
+                elementHook.errorIcon.classList.add('d-none');
+                elementHook.currationText.innerHTML = 'Loading...';
+                elementHook.errorText.innerHTML = "";
+            }, 2000);
+        }
     }
     jumpSlide(sliderIndex - 1);
 }

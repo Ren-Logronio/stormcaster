@@ -29,19 +29,6 @@ const createWindow = () => {
     if(DEBUG) win.webContents.openDevTools();
     require('@electron/remote/main').enable(win.webContents);
 
-    ipcMain.handle('dark-mode:toggle', () => {
-        if (nativeTheme.shouldUseDarkColors) {
-          nativeTheme.themeSource = 'light'
-        } else {
-          nativeTheme.themeSource = 'dark'
-        }
-        return nativeTheme.shouldUseDarkColors
-    });
-    
-    ipcMain.handle('dark-mode:system', () => {
-        nativeTheme.themeSource = 'system'
-    });
-
     win.setAlwaysOnTop(true);
     app.focus();
     win.setAlwaysOnTop(false);
