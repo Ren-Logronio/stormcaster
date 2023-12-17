@@ -102,6 +102,7 @@ const generateDescriptives = async (df) => {
     }
     // NUMBER OF STORMS BY STATUS
     {
+        const custom_order = ['Other Low', 'Disturbance', 'Tropical Wave', 'Subtropical Depression', 'Subtropical Storm', 'Extratropical', 'Tropical Depression', 'Tropical Storm', 'Hurricane'];
         
     }
     // STORM FREQUENCY BY STATUS
