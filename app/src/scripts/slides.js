@@ -3,7 +3,7 @@ var isSliderInTransition = false;
 var sliderIndex = 1;
 const sliderMinIndex = 1;
 const sliderMaxIndex = 5;
-const speed = 0.9;
+const speed = 0.99;
 
 const jumpSlide = (sliderIndexToJumpTo) => {
     if (sliderIndexToJumpTo < sliderMinIndex || sliderIndexToJumpTo > sliderMaxIndex || sliderIndex == sliderIndexToJumpTo || isSliderInTransition) {

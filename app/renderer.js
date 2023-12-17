@@ -103,7 +103,7 @@ const generateDescriptives = async (df) => {
     // NUMBER OF STORMS BY STATUS
     {
         const custom_order = ['Other Low', 'Disturbance', 'Tropical Wave', 'Subtropical Depression', 'Subtropical Storm', 'Extratropical', 'Tropical Depression', 'Tropical Storm', 'Hurricane'];
-        
+
     }
     // STORM FREQUENCY BY STATUS
 
@@ -198,6 +198,14 @@ initializeApp = () => {
     const errorIcon = document.getElementById('error-icon');
     const describeTable = document.getElementById('describe-table');
     const typesTable = document.getElementById('types-table');
+    const numberOfStormsContainer = document.getElementById('number-of-storms-container');
+    const stormFrequencyContainer = document.getElementById('storm-frequency-container');
+    const cyclicalityContainer = document.getElementById('cyclicality-container');
+    const seasonalityContainer = document.getElementById('seasonality-container');
+    const stormPathContainer = document.getElementById('storm-path-container');
+    const stormForceDiameterContainer = document.getElementById('storm-force-diameter-container');
+    const stormTracksContainer = document.getElementById('storm-tracks-container');
+    const stormGenesisContainer = document.getElementById('storm-genesis-container');
     elementHook = {
         ...elementHook,
         currationText: currationText,
@@ -206,6 +214,14 @@ initializeApp = () => {
         errorText: errorText,
         loadingIcon: loadingIcon,
         errorIcon: errorIcon,
+        numberOfStormsContainer: numberOfStormsContainer,
+        stormFrequencyContainer: stormFrequencyContainer,
+        cyclicalityContainer: cyclicalityContainer,
+        seasonalityContainer: seasonalityContainer,
+        stormPathContainer: stormPathContainer,
+        stormForceDiameterContainer: stormForceDiameterContainer,
+        stormTracksContainer: stormTracksContainer,
+        stormGenesisContainer: stormGenesisContainer,
     }
     elementHook.dropBox.addEventListener('click', ()=> {
         openFileDialog(elementHook);
