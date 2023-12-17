@@ -12,8 +12,8 @@ const createWindow = () => {
         title: 'Stormcaster',
         icon: './public/icon.png',
         frame: true,
-        minWidth: 1600,
-        minHeight: 900,
+        minWidth: 1280,
+        minHeight: 720,
         webPreferences: {
             nodeIntegration: true,
             nodeIntegrationInWorker: true,

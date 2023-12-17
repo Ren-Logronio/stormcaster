@@ -4,10 +4,12 @@ const fs = require('fs');
 const dfd = require('danfojs');
 const uuid = require('uuid');
 const DataTable = require('datatables.net-dt')
+const Plotly = require('plotly.js-dist');
 
 const fakeLoadTime = 0.001;
 
 const openFileDialog = () => {
+    if(conditionHook.isFileDialogOpen) return;
     const options = {
         title: 'Select CSV File',
         filters: [
@@ -16,9 +18,11 @@ const openFileDialog = () => {
         ],
         properties: ['openFile']
     };
+    conditionHook.isFileDialogOpen = true;
 
     // Showing the file dialog
     dialog.showOpenDialog(options).then(result => {
+        conditionHook.isFileDialogOpen = false;
         if (!result.canceled) {
             const filePath = result.filePaths[0];
             // Do something with the selected file path, e.g., read the file
@@ -102,11 +106,60 @@ const generateDescriptives = async (df) => {
     }
     // NUMBER OF STORMS BY STATUS
     {
+        // elementHook.numberOfStormsContainer
         const custom_order = ['Other Low', 'Disturbance', 'Tropical Wave', 'Subtropical Depression', 'Subtropical Storm', 'Extratropical', 'Tropical Depression', 'Tropical Storm', 'Hurricane'];
+        
+        var dfGroupedByStatus = df.groupby(['STATUS']);
+
+        var data = {
+            labels: [],
+            values: [],
+        }
+
+        Object.entries(dfGroupedByStatus.colDict).forEach(function ([key, value]) {
+            var uniqueValues = new Set();
+            result = value['ID'].map(item => {
+                if (!uniqueValues.has(item)) {
+                    uniqueValues.add(item);
+                    return item;
+                    }
+                return null; // return null for duplicate values
+            });
+            result = result.filter(item => item !== null);
+            data.labels.push(key);
+            data.values.push(result.length);
+        });
+
+        const sortedData = data.labels.map((label, index) => ({
+            label,
+            value: data.values[index]
+        })).sort((a, b) => a.value - b.value);
+
+        console.log(data);
+
+        const trace = {
+            x: sortedData.map(item => item.label),
+            y: sortedData.map(item => item.value),
+            type: 'bar',
+            marker: {
+              color: 'blue' // You can customize the color if needed
+            }
+        };
+
+        const layout = {
+            title: 'Number of Storms by Status',
+            xaxis: {
+              title: 'Status'
+            },
+            yaxis: {
+              title: 'Number of Storms'
+            }
+        };
+
+        const plotData = [trace];
+        Plotly.newPlot(elementHook.numberOfStormsStatusContainer, plotData, layout);
 
     }
-    // STORM FREQUENCY BY STATUS
-
     // Number of Storms by Saffir-Simpson Hurricane Category Calculated from Wind Speed
 
     // HurrCyclicality
@@ -198,8 +251,9 @@ initializeApp = () => {
     const errorIcon = document.getElementById('error-icon');
     const describeTable = document.getElementById('describe-table');
     const typesTable = document.getElementById('types-table');
-    const numberOfStormsContainer = document.getElementById('number-of-storms-container');
-    const stormFrequencyContainer = document.getElementById('storm-frequency-container');
+    const numberOfStormsStatusContainer = document.getElementById('number-of-storms-status-container');
+    const numberOfStormsCategoryContainer = document.getElementById('number-of-storms-category-container');
+    const numberOfStormsSelectInput = document.getElementById('number-of-storms-select-input');
     const cyclicalityContainer = document.getElementById('cyclicality-container');
     const seasonalityContainer = document.getElementById('seasonality-container');
     const stormPathContainer = document.getElementById('storm-path-container');
@@ -214,8 +268,9 @@ initializeApp = () => {
         errorText: errorText,
         loadingIcon: loadingIcon,
         errorIcon: errorIcon,
-        numberOfStormsContainer: numberOfStormsContainer,
-        stormFrequencyContainer: stormFrequencyContainer,
+        numberOfStormsStatusContainer: numberOfStormsStatusContainer,
+        numberOfStormsCategoryContainer: numberOfStormsCategoryContainer,
+        numberOfStormsSelectInput: numberOfStormsSelectInput,
         cyclicalityContainer: cyclicalityContainer,
         seasonalityContainer: seasonalityContainer,
         stormPathContainer: stormPathContainer,
@@ -223,6 +278,15 @@ initializeApp = () => {
         stormTracksContainer: stormTracksContainer,
         stormGenesisContainer: stormGenesisContainer,
     }
+    elementHook.numberOfStormsSelectInput.addEventListener('change', (event) => {
+        if(event.target.value == 'status') {
+            elementHook.numberOfStormsStatusContainer.classList.remove('d-none');
+            elementHook.numberOfStormsCategoryContainer.classList.add('d-none');
+        } else {
+            elementHook.numberOfStormsStatusContainer.classList.add('d-none');
+            elementHook.numberOfStormsCategoryContainer.classList.remove('d-none');
+        }
+    });
     elementHook.dropBox.addEventListener('click', ()=> {
         openFileDialog(elementHook);
     });
@@ -233,7 +297,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     initializeDropBox();
     initializeApp();
 
-    // openCSVFile(`Z:\\storm-predictive-model-project\\Asia-Pacific-Storm-Tracks\\2001-2022storms\\2001-2022storms.csv`);
+    openCSVFile(`Z:\\storm-predictive-model-project\\Asia-Pacific-Storm-Tracks\\2001-2022storms\\2001-2022storms.csv`);
     //console.log("elementHooks:");
     //console.log(elementHook);
 });

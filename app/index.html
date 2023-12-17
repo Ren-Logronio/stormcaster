@@ -116,10 +116,17 @@
                         <p class="text-center h3 ">Data Types</p>
                         <div id="types-table" class="d-flex flex-row justify-content-center mb-5"></div>
                         <hr>
-                        <p class="text-center h3 ">Number of Storms</p>
-                        <div id="number-of-storms-container" class="d-flex flex-row justify-content-center mb-5"></div>
-                        <p class="text-center h3 ">Storm Frequency</p>
-                        <div id="storm-frequency-container" class="d-flex flex-row justify-content-center mb-5"></div>
+                        <div class="d-flex flex-column justify-content-center mb-2">
+                            <p class="text-center h3 ">Number of Storms</p>
+                            <select id="number-of-storms-select-input" class="form-select align-self-center">
+                                <option value="status">By Status</option>
+                                <option value="category">By Category</option>
+                            </select>
+                        </div>
+                        <div id="number-of-storms-status-container" class="d-flex flex-row justify-content-center mb-5"></div>
+                        <div id="number-of-storms-category-container" class="d-flex flex-row justify-content-center mb-5">
+                            Container
+                        </div>
                         <p class="text-center h3 ">Hurricane Cyclicality</p>
                         <div id="cyclicality-container" class="d-flex flex-row justify-content-center mb-5"></div>
                         <p class="text-center h3 ">Hurricane Seasonality (by year, month)</p>

@@ -38,6 +38,10 @@
     animation-duration: 1s;
 }
 
+select, input {
+    max-width: 8rem;
+}
+
 button {
     all: unset;
 }
@@ -48,6 +52,7 @@ table {
 
 table, table td, table th {
     /* color:#000413 !important; */
+    color: var(--text-color) !important;
     font-size: 12px;
 }
 
@@ -55,8 +60,12 @@ table th.sorting::before, table th.sorting::after {
     color: var(--text-color) !important;
 }
 
-p, *, .text {
+*, p, a, svg, .text {
     color: var(--text-color) !important;
+}
+
+input, select, textarea {
+    color:#000413 !important;
 }
 
 .bg-gradient-darkblue {
