@@ -8,5 +8,12 @@ var elementHook = {
     inputs: []
 };
 var dataFrameHook;
-var conditionHook = {};
-var callbackHook = {};
+var conditionHook = {
+
+};
+var arrayHooks = {
+    
+}
+var mapHook = {
+    
+}

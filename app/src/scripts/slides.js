@@ -65,7 +65,11 @@ const jumpSlide = (sliderIndexToJumpTo) => {
     }, speed * 1000);
     setTimeout(() => {
         isSliderInTransition = false;
+        setTimeout(function () {
+            mapHook.individualStormPathMap.invalidateSize(true);
+        }, 1000);
     }, speed * 2000);
+    
     return `Transitioned from ${sliderIndex} to ${sliderIndexToJumpTo}`;
 }
 
@@ -97,6 +101,9 @@ const initializeSlides = () => {
         const sliderItem5 = document.querySelector('#slider-item-5');
     const slide1 = document.querySelector('#slide-1');
     const slide2 = document.querySelector('#slide-2');
+    const slide3 = document.querySelector('#slide-3');
+    const slide4 = document.querySelector('#slide-4');
+    const slide5 = document.querySelector('#slide-5');
     const nextSlidebutton = document.querySelector('#next-slide-button');
     const previousSlidebutton = document.querySelector('#previous-slide-button');
     elementHook = {
@@ -108,6 +115,9 @@ const initializeSlides = () => {
             sliderItem5: sliderItem5,
         slide1: slide1,
         slide2: slide2,
+        slide3: slide3,
+        slide4: slide4,
+        slide5: slide5,
         nextSlidebutton: nextSlidebutton,
         previousSlidebutton: previousSlidebutton,
     }

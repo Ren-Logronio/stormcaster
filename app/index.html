@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="./node_modules/animate.css/animate.min.css">
         <link rel="stylesheet" href="./node_modules/datatables.net-dt/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css">
         <link rel="stylesheet" href="./src/styles/style.css">
         <script src="./src/scripts/hooks.js"></script>
         <script src="./src/scripts/slides.js" defer></script>
@@ -118,30 +119,53 @@
                         <hr>
                         <div class="d-flex flex-column justify-content-center mb-2">
                             <p class="text-center h3 ">Frequency of Storms</p>
-                            <select id="number-of-storms-select-input" class="form-select align-self-center">
-                                <option value="status" selected>By Status</option>
-                                <option value="category">By Category</option>
-                                <option value="year">By Year</option>
-                                <option value="month">By Month</option>
+                            <select id="number-of-storms-select-input" class="form-select form-control align-self-center">
+                                <optgroup label="Classification">
+                                    <option value="status" selected>By Status</option>
+                                    <option value="category">By Category</option>
+                                </optgroup>
+                                <optgroup label="Seasonality">
+                                    <option value="year">By Year</option>
+                                    <option value="month">By Month</option>
+                                </optgroup>
                             </select>
                         </div>
                         <div id="number-of-storms-status-container" class="d-flex flex-row justify-content-center mb-5"></div>
                         <div id="number-of-storms-category-container" class="d-none d-flex flex-row justify-content-center mb-5"></div>
                         <div id="number-of-storms-year-container" class="d-none d-flex flex-row justify-content-center mb-5"></div>
                         <div id="number-of-storms-month-container" class="d-none d-flex flex-row justify-content-center mb-5"></div>
-                        <p class="text-center h3 ">Hurricane Cyclicality</p>
+
+                        <p class="text-center h3 ">Cyclicality</p>
                         <div id="cyclicality-container" class="d-flex flex-row justify-content-center mb-5"></div>
-                        <p class="text-center h3 ">Storm Path</p>
-                        <div id="storm-path-container" class="d-flex flex-row justify-content-center mb-5"></div>
-                        <p class="text-center h3 ">Storm Force Diameter</p>
-                        <div id="storm-force-diameter-container" class="d-flex flex-row justify-content-center mb-5"></div>
-                        <p class="text-center h3 ">Hurricane/Storm Tracks</p>
-                        <div id="storm-tracks-container" class="d-flex flex-row justify-content-center mb-5"></div>
+
+                        <div class="d-flex flex-column justify-content-center mb-2">
+                            <p class="text-center h3 ">Individual Storm Paths</p>
+                            <div class="d-flex flex-row justify-content-center">
+                                <input list="individual-storm-path-datalist" id="individual-storm-path-datalist-input" name="individual-storm-path" class="form-control "/>
+                                <div class="form-check align-self-center ms-4">
+                                    <input class="form-check-input" type="checkbox" value="" id="individual-storm-path-show-diameter-checkbox">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Show Diameter
+                                    </label>
+                                  </div>
+                                <datalist id="individual-storm-path-datalist" class="align-self-center">
+                                </datalist>
+                            </div>
+                        </div>
+                        <div id="individual-storm-path-container" class="map ms-auto me-auto"></div>
+
+                        <div class="d-flex flex-column justify-content-center mb-2">
+                            <p class="text-center h3 ">Storm Path By Group</p>
+                            <select id="number-of-storms-select-input" class="form-select align-self-center"></select>
+                        </div>
+                        <div id="storm-path-by-group-container" class="d-flex flex-row justify-content-center mb-5"></div>
+
                         <p class="text-center h3 ">Storm Genesis</p>
                         <div id="storm-genesis-container" class="d-flex flex-row justify-content-center mb-5"></div>
                         <div class="slide-pad"></div>
                     </div>
                 </div>
+
             </div>
             <div id="slide-4" class="d-none d-flex slide ">
                 <div class="content">
