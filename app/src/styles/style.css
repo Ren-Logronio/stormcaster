@@ -39,7 +39,7 @@
 }
 
 select, input {
-    max-width: 8rem;
+    max-width: 10rem;
 }
 
 button {
@@ -64,7 +64,7 @@ table th.sorting::before, table th.sorting::after {
     color: var(--text-color) !important;
 }
 
-input, select, textarea {
+input, select, textarea, option {
     color:#000413 !important;
 }
 
@@ -97,7 +97,7 @@ input, select, textarea {
 
 #slider > div {
     padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important;
+    padding-bottom: 1.1rem !important;
     min-width: 624px !important;
     margin-left: auto !important;
     margin-right: auto !important;

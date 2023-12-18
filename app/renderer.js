@@ -107,15 +107,11 @@ const generateDescriptives = async (df) => {
     // NUMBER OF STORMS BY STATUS
     {
         // elementHook.numberOfStormsContainer
-        const custom_order = ['Other Low', 'Disturbance', 'Tropical Wave', 'Subtropical Depression', 'Subtropical Storm', 'Extratropical', 'Tropical Depression', 'Tropical Storm', 'Hurricane'];
-        
         var dfGroupedByStatus = df.groupby(['STATUS']);
-
         var data = {
             labels: [],
             values: [],
-        }
-
+        };
         Object.entries(dfGroupedByStatus.colDict).forEach(function ([key, value]) {
             var uniqueValues = new Set();
             result = value['ID'].map(item => {
@@ -129,14 +125,10 @@ const generateDescriptives = async (df) => {
             data.labels.push(key);
             data.values.push(result.length);
         });
-
         const sortedData = data.labels.map((label, index) => ({
             label,
             value: data.values[index]
         })).sort((a, b) => a.value - b.value);
-
-        console.log(data);
-
         const trace = {
             x: sortedData.map(item => item.label),
             y: sortedData.map(item => item.value),
@@ -145,9 +137,7 @@ const generateDescriptives = async (df) => {
               color: 'blue' // You can customize the color if needed
             }
         };
-
         const layout = {
-            title: 'Number of Storms by Status',
             xaxis: {
               title: 'Status'
             },
@@ -155,17 +145,155 @@ const generateDescriptives = async (df) => {
               title: 'Number of Storms'
             }
         };
-
         const plotData = [trace];
         Plotly.newPlot(elementHook.numberOfStormsStatusContainer, plotData, layout);
 
     }
-    // Number of Storms by Saffir-Simpson Hurricane Category Calculated from Wind Speed
+    {
+        const dfWithModifiedType = df.asType("CATEGORY","string");
+        const modifiedDfGroupedByCategory = dfWithModifiedType.groupby(['CATEGORY']);
+        var data = {
+            labels: [],
+            values: [],
+        };
+        Object.entries(modifiedDfGroupedByCategory.colDict).forEach(function ([key, value]) {
+            var uniqueValues = new Set();
+            result = value['ID'].map(item => {
+                if (!uniqueValues.has(item)) {
+                    uniqueValues.add(item);
+                    return item;
+                    }
+                return null; // return null for duplicate values
+            });
+            result = result.filter(item => item !== null);
+            if(key != '0') {
+                data.labels.push(key.toString());
+                data.values.push(result.length);
+            }
+        });
+        const sortedData = data.labels.map((label, index) => ({
+            label,
+            value: data.values[index]
+        })).sort((a, b) => a.value - b.value);
+        const trace = {
+            x: sortedData.map(item => item.label),
+            y: sortedData.map(item => item.value),
+            type: 'bar',
+            marker: {
+              color: 'blue' // You can customize the color if needed
+            }
+        };
+        console.log(sortedData);
 
-    // HurrCyclicality
-
+        const layout = {
+            xaxis: {
+              title: 'Category',
+            },
+            yaxis: {
+              title: 'Number of Storms'
+            }
+        };
+        const plotData = [trace];
+        Plotly.newPlot(elementHook.numberOfStormsCategoryContainer, plotData, layout);
+    }
     // HurrSeasonalityByYear
+    {
+        const dfGroupedByCategory = df.groupby(['YEAR']);
+        var data = {
+            labels: [],
+            values: [],
+        };
+        Object.entries(dfGroupedByCategory.colDict).forEach(function ([key, value]) {
+            var uniqueValues = new Set();
+            result = value['ID'].map(item => {
+                if (!uniqueValues.has(item)) {
+                    uniqueValues.add(item);
+                    return item;
+                    }
+                return null; // return null for duplicate values
+            });
+            result = result.filter(item => item !== null);
+            if(key != '0') {
+                data.labels.push(key);
+                data.values.push(result.length);
+            }
+        });
+        /*
+        const sortedData = data.labels.map((label, index) => ({
+            label,
+            value: data.values[index]
+        })).sort((a, b) => a.value - b.value);
+        */
+        const trace = {
+            x: data.labels.map(String),
+            y: data.values,
+            type: 'bar',
+            marker: {
+              color: 'blue' // You can customize the color if needed
+            }
+        };
+        const layout = {
+            xaxis: {
+              title: 'Year',
+            },
+            yaxis: {
+              title: 'Number of Storms'
+            }
+        };
+        const plotData = [trace];
+        Plotly.newPlot(elementHook.numberOfStormsYearContainer, plotData, layout);
+    }
+    // BY MONTH
+    {
+        const dfGroupedByCategory = df.groupby(['MONTH']);
+        var data = {
+            labels: [],
+            values: [],
+        };
+        Object.entries(dfGroupedByCategory.colDict).forEach(function ([key, value]) {
+            var uniqueValues = new Set();
+            result = value['ID'].map(item => {
+                if (!uniqueValues.has(item)) {
+                    uniqueValues.add(item);
+                    return item;
+                    }
+                return null; // return null for duplicate values
+            });
+            result = result.filter(item => item !== null);
+            if(key != '0') {
+                data.labels.push(new Date(Date.UTC(2000, key - 1, 1)).toLocaleString('en-US', { month: 'long' }));
+                data.values.push(result.length);
+            }
+        });
+        /*
+        const sortedData = data.labels.map((label, index) => ({
+            label,
+            value: data.values[index]
+        })).sort((a, b) => a.value - b.value);
+        */
+        const trace = {
+            x: data.labels,
+            y: data.values,
+            type: 'bar',
+            marker: {
+              color: 'blue' // You can customize the color if needed
+            }
+        };
+        const layout = {
+            xaxis: {
+              title: 'Month'
+            },
+            yaxis: {
+              title: 'Number of Storms'
+            }
+        };
+        const plotData = [trace];
+        Plotly.newPlot(elementHook.numberOfStormsMonthContainer, plotData, layout);
+    }
+    // HurrCyclicality
+    {
 
+    }
     // STORM PATH
 
     // TROPICAL STORM FORCE DIAMETER
@@ -253,9 +381,10 @@ initializeApp = () => {
     const typesTable = document.getElementById('types-table');
     const numberOfStormsStatusContainer = document.getElementById('number-of-storms-status-container');
     const numberOfStormsCategoryContainer = document.getElementById('number-of-storms-category-container');
+    const numberOfStormsYearContainer = document.getElementById('number-of-storms-year-container');
+    const numberOfStormsMonthContainer = document.getElementById('number-of-storms-month-container');
     const numberOfStormsSelectInput = document.getElementById('number-of-storms-select-input');
     const cyclicalityContainer = document.getElementById('cyclicality-container');
-    const seasonalityContainer = document.getElementById('seasonality-container');
     const stormPathContainer = document.getElementById('storm-path-container');
     const stormForceDiameterContainer = document.getElementById('storm-force-diameter-container');
     const stormTracksContainer = document.getElementById('storm-tracks-container');
@@ -272,19 +401,35 @@ initializeApp = () => {
         numberOfStormsCategoryContainer: numberOfStormsCategoryContainer,
         numberOfStormsSelectInput: numberOfStormsSelectInput,
         cyclicalityContainer: cyclicalityContainer,
-        seasonalityContainer: seasonalityContainer,
         stormPathContainer: stormPathContainer,
         stormForceDiameterContainer: stormForceDiameterContainer,
         stormTracksContainer: stormTracksContainer,
         stormGenesisContainer: stormGenesisContainer,
+        numberOfStormsYearContainer: numberOfStormsYearContainer,
+        numberOfStormsMonthContainer: numberOfStormsMonthContainer,
     }
     elementHook.numberOfStormsSelectInput.addEventListener('change', (event) => {
-        if(event.target.value == 'status') {
+        const value = event.target.value;
+        if(value == 'status') {
             elementHook.numberOfStormsStatusContainer.classList.remove('d-none');
             elementHook.numberOfStormsCategoryContainer.classList.add('d-none');
-        } else {
-            elementHook.numberOfStormsStatusContainer.classList.add('d-none');
+            elementHook.numberOfStormsYearContainer.classList.add('d-none');
+            elementHook.numberOfStormsMonthContainer.classList.add('d-none');
+        } else if (value == 'category') {
             elementHook.numberOfStormsCategoryContainer.classList.remove('d-none');
+            elementHook.numberOfStormsStatusContainer.classList.add('d-none');
+            elementHook.numberOfStormsYearContainer.classList.add('d-none');
+            elementHook.numberOfStormsMonthContainer.classList.add('d-none');
+        } else if (value == 'year') {
+            elementHook.numberOfStormsYearContainer.classList.remove('d-none');
+            elementHook.numberOfStormsStatusContainer.classList.add('d-none');
+            elementHook.numberOfStormsCategoryContainer.classList.add('d-none');
+            elementHook.numberOfStormsMonthContainer.classList.add('d-none');
+        } else if (value == 'month') {
+            elementHook.numberOfStormsMonthContainer.classList.remove('d-none');
+            elementHook.numberOfStormsStatusContainer.classList.add('d-none');
+            elementHook.numberOfStormsCategoryContainer.classList.add('d-none');
+            elementHook.numberOfStormsYearContainer.classList.add('d-none');
         }
     });
     elementHook.dropBox.addEventListener('click', ()=> {
