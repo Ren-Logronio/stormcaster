@@ -15,5 +15,5 @@ var arrayHooks = {
     
 }
 var mapHook = {
-    
+    maps: [],
 }

@@ -1,3 +1,4 @@
+const { TRUE } = require("sass");
 
 var isSliderInTransition = false;
 var sliderIndex = 1;
@@ -66,7 +67,9 @@ const jumpSlide = (sliderIndexToJumpTo) => {
     setTimeout(() => {
         isSliderInTransition = false;
         setTimeout(function () {
-            mapHook.individualStormPathMap.invalidateSize(true);
+            mapHook.maps.forEach((map) => {
+                map.invalidateSize(true);
+            });
         }, 1000);
     }, speed * 2000);
     

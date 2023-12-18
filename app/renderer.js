@@ -6,11 +6,29 @@ const uuid = require('uuid');
 const DataTable = require('datatables.net-dt')
 const Plotly = require('plotly.js-dist');
 const sk = require('scikitjs');
-const leaflet = require('leaflet');
+const leaflet = require('leaflet'); require('./src/scripts/leaflet-heat.js');
 
 const fakeLoadTime = 0.001;
 
-const mapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const heatMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 3,
+    minZoom: 3,
+    edgeBufferTiles: 5,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+const stormPathMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    minZoom: 3,
+    edgeBufferTiles: 5,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+const stormGenesisMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    minZoom: 3,
+    edgeBufferTiles: 5,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+const individualStormPathMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     minZoom: 3,
     edgeBufferTiles: 5,
@@ -20,7 +38,23 @@ const mapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.p
 mapHook.individualStormPathMapDivision = document.createElement("div");
 mapHook.individualStormPathMapDivision.classList.add("map");
 mapHook.individualStormPathMap = leaflet.map(mapHook.individualStormPathMapDivision);
-mapLayer.addTo(mapHook.individualStormPathMap);
+mapHook.stormPathByGroupMapDivision = document.createElement("div");
+mapHook.stormPathByGroupMapDivision.classList.add("map");
+mapHook.stormPathByGroupMap = leaflet.map(mapHook.stormPathByGroupMapDivision);
+mapHook.stormGenesisMapDivision = document.createElement("div");
+mapHook.stormGenesisMapDivision.classList.add("map");
+mapHook.stormGenesisMap = leaflet.map(mapHook.stormGenesisMapDivision);
+mapHook.heatMapDivision = document.createElement("div");
+mapHook.heatMapDivision.classList.add("map");
+mapHook.heatMap = leaflet.map(mapHook.heatMapDivision, { zoomControl: false });
+mapHook.maps.push(mapHook.heatMap);
+mapHook.maps.push(mapHook.individualStormPathMap);
+mapHook.maps.push(mapHook.stormPathByGroupMap);
+mapHook.maps.push(mapHook.stormGenesisMap);
+individualStormPathMapLayer.addTo(mapHook.individualStormPathMap);
+stormPathMapLayer.addTo(mapHook.stormPathByGroupMap);
+stormGenesisMapLayer.addTo(mapHook.stormGenesisMap);
+heatMapLayer.addTo(mapHook.heatMap);
 
 const openFileDialog = () => {
     if(conditionHook.isFileDialogOpen) return;
@@ -341,6 +375,7 @@ const generateDescriptives = async (df) => {
             x: data.labels.map(String),
             y: data.values,
             type: 'line',
+            name: 'Number of Storms',
             marker: {
               color: 'blue' 
             }
@@ -365,18 +400,71 @@ const generateDescriptives = async (df) => {
         const plotData = [trace, movingAvgTrace];
         Plotly.newPlot(elementHook.cyclicalityContainer, plotData, layout);
     }
-    // HurricaneStormTracks
+    // Heat Map 
     {
+        const generalLatitudeMean = df['LAT'].mean();
+        const generalLongitudeMean = df['LONG'].mean();
+        var heatMapData = [];
+        var steps = 0;
+        df.$data.forEach((entry) => {
+            steps += 1;
+            if(steps % 2 !== 0 && steps % 3 !== 0) {
+                conditionHook.n = conditionHook.n ? conditionHook.n + 1 : 1;
+                const latitude = entry[df.$columns.indexOf('LAT')];
+                const longitude = entry[df.$columns.indexOf('LONG')];
+                const tropicalStormDiameter = entry[df.$columns.indexOf('TROPICALSTORM_FORCE_DIAMETER')];
+                const hurricaneDiameter = entry[df.$columns.indexOf('HURRICANE_FORCE_DIAMETER')];
+                const generalDiameter = tropicalStormDiameter > 0 ? tropicalStormDiameter : hurricaneDiameter;
+                heatMapData.push([latitude, longitude, generalDiameter * 0.01]);
+            }
+        });
 
+        mapHook.heatMap.touchZoom.disable();
+        mapHook.heatMap.doubleClickZoom.disable();
+        mapHook.heatMap.scrollWheelZoom.disable();
+        mapHook.heatMap.boxZoom.disable();
+        mapHook.heatMap.keyboard.disable();
+        mapHook.heatMap.setView([generalLatitudeMean, generalLongitudeMean], 3);
 
+        setTimeout(function () {
+            mapHook.heatMap.invalidateSize(true);
+            setTimeout(function () {
+                leaflet.heatLayer(heatMapData, {radius: 10}).addTo(mapHook.heatMap);
+            }, 5000);
+        }, 1500);
     }
     // Storm Genesis
     {
-
+        const generalLatitudeMean = df['LAT'].mean();
+        const generalLongitudeMean = df['LONG'].mean();
+        var uniqueSet = new Set();
+        const data = df.$data;
+        data.map(item => {
+            if (!uniqueSet.has(item[0])) {
+                uniqueSet.add(item[0]);
+                return item;
+            }
+            return null;
+        }).filter(item => item !== null).forEach(item => {
+            const latitude = item[df.$columns.indexOf('LAT')];
+            const longitude = item[df.$columns.indexOf('LONG')];
+            leaflet.circleMarker([latitude, longitude], {
+                radius: 1,
+                color: 'red',
+                fill: true,
+                fillColor: 'red',
+                fillOpacity: 1
+            }).addTo(mapHook.stormGenesisMap)
+        });
+        mapHook.stormGenesisMap.setView([generalLatitudeMean, generalLongitudeMean], 3);
+        setTimeout(function () {
+            mapHook.stormGenesisMap.invalidateSize(true);
+        }, 1500);
     }
     // STORM PATH
     {
         const iDs = df['ID'].$data;
+        
         var uniqueValues = new Set();
         result = iDs.map(item => {
             if (!uniqueValues.has(item)) {
@@ -393,23 +481,111 @@ const generateDescriptives = async (df) => {
                 console.log(id);
                 optionElement.selected = true;
                 elementHook.individualStormPathDatalistInput.value = id;
-                generateStormPath(id);
+                generateIndividualStormPath(id, false);
             }
             elementHook.individualStormPathDatalist.appendChild(optionElement);
         })
         elementHook.individualStormPathDatalistInput.addEventListener('input', (e)=>{
-            
+            generateIndividualStormPath(e.target.value, elementHook.individualStormPathShowDiameterCheckbox.checked);
+        });
+        elementHook.individualStormPathShowDiameterCheckbox.addEventListener('change', (e)=>{
+            generateIndividualStormPath(elementHook.individualStormPathDatalistInput.value, e.target.checked);
+        });
+        document.getElementById('shuffleButton').addEventListener('click', ()=> {
+            const randomIndex = Math.floor(Math.random() * result.length);
+            elementHook.individualStormPathDatalistInput.value = result[randomIndex];
+            generateIndividualStormPath(result[randomIndex], elementHook.individualStormPathShowDiameterCheckbox.checked);
         });
         // dataFrameHook.df.query(dataFrameHook.df['ID'].eq('ALEX202206'));
         // dataFrameHook.df.query(dataFrameHook.df['ID'].eq('ALEX202206')).$data.length
         // conditionHook.diameterIsOn
-        //
-
+    }
+    // HurricaneStormTracks
+    {
+        generateGroupStormPath();
     }
     return;
 }
 
-const generateStormPath = (text) => {
+const generateGroupStormPath = () => {
+
+    const df = dataFrameHook.df;
+    const generalLatitudeMean = df['LAT'].mean();
+    const generalLongitudeMean = df['LONG'].mean();
+    
+    const iDs = df['ID'].$data;
+    var uniqueValues = new Set();
+    var uniqueIds = iDs.map(item => {
+        if (!uniqueValues.has(item)) {
+            uniqueValues.add(item);
+            return item;
+            }
+        return null; // return null for duplicate values
+    });
+    uniqueIds = uniqueIds.filter(item => item !== null);
+
+    Object.entries(mapHook.stormPathByGroupMap._layers)?.forEach(function ([key, value]) {
+        if(value._path != undefined) {
+            try {
+                mapHook.stormPathByGroupMap.removeLayer(value);
+            }
+            catch(e) {
+                console.log("problem with " + e + value);
+            }
+        }
+    });
+    uniqueIds.forEach(id => {
+        const dfFromId = df.query(df['ID'].eq(id));
+        var coordata = [];
+        
+        dfFromId.$data.forEach((entry) => {
+            if (entry && entry.length >= 8) { 
+                const latitude = entry[6];
+                const longitude = entry[7];
+                if (latitude !== undefined && longitude !== undefined) {
+                    coordata.push([latitude, longitude]);
+                }
+            }
+        });
+    
+        leaflet.polyline(coordata, { color: 'blue', weight: 0.5, opacity: 0.8 }).addTo(mapHook.stormPathByGroupMap);
+    });
+    
+    //polylines.forEach(polyline => polyline.addTo(mapHook.stormPathByGroupMap));
+    mapHook.stormPathByGroupMap.setView([generalLatitudeMean, generalLongitudeMean], 3);
+
+    setTimeout(function () {
+        mapHook.stormPathByGroupMap.invalidateSize(true);
+    }, 2500);
+    /*
+        def HurricaneStormTracks(hurdat2):
+            # Create a Folium map centered at the mean latitude and longitude
+            m = folium.Map(location=[hurdat2['LAT'].mean(), hurdat2['LONG'].mean()], zoom_start=5, tiles='OpenStreetMap')
+
+            # Select hurricanes
+            HurricaneStorms = hurdat2[hurdat2['STATUS'] == "Hurricane"]
+            HurricaneStorms_Unique = HurricaneStorms['NAME'].unique()
+            print('Total number of Hurricane Storms = ', len(HurricaneStorms_Unique))
+
+            # Iterate over each hurricane storm
+            for storm_name in HurricaneStorms_Unique:
+                temp_db = hurdat2[hurdat2['NAME'] == storm_name]
+                latitudes = temp_db['LAT'].tolist()
+                longitudes = temp_db['LONG'].tolist()
+                coordinates = list(zip(latitudes, longitudes))
+
+                # Add a PolyLine to the map for the storm track
+                PolyLine(coordinates, color='red', weight=0.5, opacity=0.7, popup=storm_name).add_to(m)
+
+            # Save the map as an HTML file or display it
+            m.save("hurricane_storm_tracks_map.html")
+            return m
+
+        HurricaneStormTracks(df)
+        */
+}
+
+const generateIndividualStormPath = (text, showDiameter) => {
     if(!text){
         return;
     }
@@ -419,18 +595,24 @@ const generateStormPath = (text) => {
     if(numberOfQueryResults == 0) {
         return;
     }
-    console.log("MAPPING");
     const latitudeCenter = selectedStorm['LAT'].mean();
     const longitudeCenter = selectedStorm['LONG'].mean();
     const latitudeData = selectedStorm['LAT'].$data;
     const longitudeData = selectedStorm['LONG'].$data;
-    console.log(latitudeCenter);
-    console.log(longitudeCenter);
-    console.log(latitudeData);
-    console.log(longitudeData);
+
+    Object.entries(mapHook.individualStormPathMap._layers)?.forEach(function ([key, value]) {
+        if(value._path != undefined) {
+            try {
+                mapHook.individualStormPathMap.removeLayer(value);
+            }
+            catch(e) {
+                console.log("problem with " + e + value);
+            }
+        }
+    });
     
     const pathCoordinates = latitudeData.map((lat, index) => [lat, longitudeData[index]]);
-    mapHook.individualStormPathMap.setView([latitudeCenter, longitudeCenter], 1);
+    mapHook.individualStormPathMap.setView([latitudeCenter, longitudeCenter], 3);
     leaflet.polyline(pathCoordinates, { color: 'blue', weight: 2.5, opacity: 0.8 }).addTo(mapHook.individualStormPathMap);
     // Add CircleMarkers for each point with labels
     selectedStorm.$data.forEach((entry) => {
@@ -441,17 +623,28 @@ const generateStormPath = (text) => {
         const entryDay = entry[selectedStorm.$columns.indexOf('DAY')];
         const entryCategory = entry[selectedStorm.$columns.indexOf('CATEGORY')];
         const entryWind = entry[selectedStorm.$columns.indexOf('STATUS')];
+        const entryTropicalDiameter = entry[selectedStorm.$columns.indexOf('TROPICALSTORM_FORCE_DIAMETER')];
+        const entryHurricaneDiameter = entry[selectedStorm.$columns.indexOf('HURRICANE_FORCE_DIAMETER')];
+        if(showDiameter && (entryTropicalDiameter > 0 || entryHurricaneDiameter > 0)) {
+            leaflet.circle([entryLatitude, entryLongitude], {
+                radius: (entryTropicalDiameter > 0 ? entryTropicalDiameter : entryHurricaneDiameter) * 1852,
+                color: 'blue',
+                fill: false,
+                fillOpacity: 1
+            }).addTo(mapHook.individualStormPathMap)
+        }
         leaflet.circleMarker([entryLatitude, entryLongitude], {
             radius: 3,
             color: 'red',
             fill: true,
             fillColor: 'red',
             fillOpacity: 1
-        }).bindPopup(`Year: ${entryYear} Month: ${entryMonth} Day: ${entryDay} Category: ${entryCategory} Wind: ${entryWind}`).addTo(mapHook.individualStormPathMap);
+        }).bindPopup(`Year: ${entryYear} Month: ${entryMonth} Day: ${entryDay} Category: ${entryCategory} Wind: ${entryWind}`)
+            .addTo(mapHook.individualStormPathMap)
     });
     setTimeout(function () {
         mapHook.individualStormPathMap.invalidateSize(true);
-    }, 1000);
+    }, 1500);
 }
 
 const generatePredictives = () => {
@@ -528,6 +721,7 @@ initializeApp = () => {
     const errorIcon = document.getElementById('error-icon');
     const describeTable = document.getElementById('describe-table');
     const typesTable = document.getElementById('types-table');
+    const heatMapContainer = document.getElementById('heat-map-container');
     const numberOfStormsStatusContainer = document.getElementById('number-of-storms-status-container');
     const numberOfStormsCategoryContainer = document.getElementById('number-of-storms-category-container');
     const numberOfStormsYearContainer = document.getElementById('number-of-storms-year-container');
@@ -548,6 +742,7 @@ initializeApp = () => {
         errorText: errorText,
         loadingIcon: loadingIcon,
         errorIcon: errorIcon,
+        heatMapContainer: heatMapContainer,
         numberOfStormsStatusContainer: numberOfStormsStatusContainer,
         numberOfStormsCategoryContainer: numberOfStormsCategoryContainer,
         numberOfStormsSelectInput: numberOfStormsSelectInput,
@@ -562,8 +757,13 @@ initializeApp = () => {
         numberOfStormsMonthContainer: numberOfStormsMonthContainer,
     }
     elementHook.individualStormPathContainer.appendChild(mapHook.individualStormPathMapDivision);
+    elementHook.stormPathByGroupContainer.appendChild(mapHook.stormPathByGroupMapDivision);
+    elementHook.stormGenesisContainer.appendChild(mapHook.stormGenesisMapDivision);
+    elementHook.heatMapContainer.appendChild(mapHook.heatMapDivision);
     setTimeout(function () {
-        mapHook.individualStormPathMap.invalidateSize(true);
+        mapHook.maps.forEach((map) => {
+            map.invalidateSize(true);
+        });
     }, 1000);
     elementHook.numberOfStormsSelectInput.addEventListener('change', (event) => {
         const value = event.target.value;

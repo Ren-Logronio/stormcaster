@@ -21,6 +21,8 @@
     "danfojs": "^1.1.2",
     "datatables.net-dt": "^1.13.8",
     "electron-reload": "^2.0.0-alpha.1",
+    "heatmap.js": "^2.0.5",
+    "heatmapjs": "^2.0.2",
     "leaflet": "^1.9.4",
     "nodemon": "^3.0.2",
     "pandas-js": "^0.2.4",

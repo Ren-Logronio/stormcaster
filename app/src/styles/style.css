@@ -39,8 +39,12 @@
 }
 
 .map {
-    min-height: 600px;
-    max-width: 700px;
+    min-height: 500px;
+    max-width: 1000px;
+}
+
+.map * {
+    color:#000413 !important;
 }
 
 select, input {
