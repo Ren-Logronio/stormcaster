@@ -1116,7 +1116,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     initializeDropBox();
     initializeApp();
 
-    openCSVFile(`Z:\\storm-predictive-model-project\\Asia-Pacific-Storm-Tracks\\2001-2022storms\\2001-2022storms.csv`);
+    // openCSVFile(`Z:\\storm-predictive-model-project\\Asia-Pacific-Storm-Tracks\\2001-2022storms\\2001-2022storms.csv`);
     //console.log("elementHooks:");
     //console.log(elementHook);
 });
