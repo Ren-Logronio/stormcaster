@@ -273,6 +273,14 @@
     "@types/seedrandom" "^2.4.28"
     seedrandom "^3.0.5"
 
+"@tensorflow/tfjs-backend-cpu@4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-cpu/-/tfjs-backend-cpu-4.15.0.tgz#64ca5bd14527ef73c863ac5b93cc2c791acb27f4"
+  integrity sha512-w3ecwXOdp+usf0s8lkLVl7+hCkKJY5Fm4LxqJ2Oy5MeeMNbwka8fDt8xyW5gOf0/gAaeG3qMKkh0lo6rr9fRlw==
+  dependencies:
+    "@types/seedrandom" "^2.4.28"
+    seedrandom "^3.0.5"
+
 "@tensorflow/tfjs-backend-webgl@3.21.0":
   version "3.21.0"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-webgl/-/tfjs-backend-webgl-3.21.0.tgz#357d70c2fbd741e1d026b0788cbf5bc7c651cca3"
@@ -285,10 +293,25 @@
     "@types/webgl2" "0.0.6"
     seedrandom "^3.0.5"
 
+"@tensorflow/tfjs-backend-webgl@4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-webgl/-/tfjs-backend-webgl-4.15.0.tgz#b5103ceca438c2c8bd6d02ad94fceac1b464a933"
+  integrity sha512-FoOva3KjKvWVHAXWAW5Ojboz1IbM1K9i8ggNG7czJgE0La4JHMo814UHSoE6Rc0hkRoOpvDUa+FxsqYOBEhuzQ==
+  dependencies:
+    "@tensorflow/tfjs-backend-cpu" "4.15.0"
+    "@types/offscreencanvas" "~2019.3.0"
+    "@types/seedrandom" "^2.4.28"
+    seedrandom "^3.0.5"
+
 "@tensorflow/tfjs-converter@3.21.0":
   version "3.21.0"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-converter/-/tfjs-converter-3.21.0.tgz#a5872aa8b949dc01315fb7f7fea2df91a1f15799"
   integrity sha512-12Y4zVDq3yW+wSjSDpSv4HnpL2sDZrNiGSg8XNiDE4HQBdjdA+a+Q3sZF/8NV9y2yoBhL5L7V4mMLDdbZBd9/Q==
+
+"@tensorflow/tfjs-converter@4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-converter/-/tfjs-converter-4.15.0.tgz#5756b3f1bbdc1a0bc4fb6a9de1b9fca45e602ec2"
+  integrity sha512-694igyzRcJYf/l6F12l3Sz6hw0xPjihlxXEpIpypYieoq/8WBIoDgigMA/gv0NylkJSfPwwuYs7GF2/zKH2Tmg==
 
 "@tensorflow/tfjs-core@3.21.0", "@tensorflow/tfjs-core@^3.16.0":
   version "3.21.0"
@@ -304,6 +327,19 @@
     node-fetch "~2.6.1"
     seedrandom "^3.0.5"
 
+"@tensorflow/tfjs-core@4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-core/-/tfjs-core-4.15.0.tgz#55b19eee24c80417b65572524a704b0d38248cb9"
+  integrity sha512-0D9olf5cdMNvJKpmY4yiN0Br1pabOyYDwRyBpl02/Hf6MxiOAi+pXqs/Xa1342g9H2CzqeL1oNxz7nRKa71GyA==
+  dependencies:
+    "@types/long" "^4.0.1"
+    "@types/offscreencanvas" "~2019.7.0"
+    "@types/seedrandom" "^2.4.28"
+    "@webgpu/types" "0.1.38"
+    long "4.0.0"
+    node-fetch "~2.6.1"
+    seedrandom "^3.0.5"
+
 "@tensorflow/tfjs-data@3.21.0":
   version "3.21.0"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-data/-/tfjs-data-3.21.0.tgz#56cf012f5a4b08e8ff1a42ace72f97925a2aef9d"
@@ -313,10 +349,24 @@
     node-fetch "~2.6.1"
     string_decoder "^1.3.0"
 
+"@tensorflow/tfjs-data@4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-data/-/tfjs-data-4.15.0.tgz#04452baa250eb17d2857ee873ea534f4c1d4a093"
+  integrity sha512-9iDWloyW/tfw11UlVhsAan+ekfGDoPYg2yS5f+43ixdwbfe0jWc/azDhIXoJALMfe7TTLmbMsx3A64e43RoeOw==
+  dependencies:
+    "@types/node-fetch" "^2.1.2"
+    node-fetch "~2.6.1"
+    string_decoder "^1.3.0"
+
 "@tensorflow/tfjs-layers@3.21.0", "@tensorflow/tfjs-layers@^3.16.0":
   version "3.21.0"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-layers/-/tfjs-layers-3.21.0.tgz#7fff00662e86f132bcab67f079c8653c3b1580e7"
   integrity sha512-CMVXsraakXgnXEnqD9QbtResA7nvV7Jz20pGmjFIodcQkClgmFFhdCG5N+zlVRHEz7VKG2OyfhltZ0dBq/OAhA==
+
+"@tensorflow/tfjs-layers@4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-layers/-/tfjs-layers-4.15.0.tgz#3ce7b2c856232173ca90f543b79c165017166067"
+  integrity sha512-PwIXB7UtGyKVmIcbonqdtArcBgva8DOxeZqklyvb/zfg17GpWeh2++eUHKSpAl5K0mdO5Y2pL4ssD9p6AQqk9w==
 
 "@tensorflow/tfjs@^3.13.0":
   version "3.21.0"
@@ -332,6 +382,23 @@
     argparse "^1.0.10"
     chalk "^4.1.0"
     core-js "3"
+    regenerator-runtime "^0.13.5"
+    yargs "^16.0.3"
+
+"@tensorflow/tfjs@^4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs/-/tfjs-4.15.0.tgz#bdd166972c503f967dd3bddd4028a77e0807c506"
+  integrity sha512-SdhKYAx/UiMJuKYxf3aXMOuK4j+rwEGRNlwAMIYPYJAFMySdqZ7hC4ZV6mB8D4LAjkgk35y3zOJ/3MWamstKdg==
+  dependencies:
+    "@tensorflow/tfjs-backend-cpu" "4.15.0"
+    "@tensorflow/tfjs-backend-webgl" "4.15.0"
+    "@tensorflow/tfjs-converter" "4.15.0"
+    "@tensorflow/tfjs-core" "4.15.0"
+    "@tensorflow/tfjs-data" "4.15.0"
+    "@tensorflow/tfjs-layers" "4.15.0"
+    argparse "^1.0.10"
+    chalk "^4.1.0"
+    core-js "3.29.1"
     regenerator-runtime "^0.13.5"
     yargs "^16.0.3"
 
@@ -387,6 +454,11 @@
   resolved "https://registry.yarnpkg.com/@types/offscreencanvas/-/offscreencanvas-2019.3.0.tgz#3336428ec7e9180cf4566dfea5da04eb586a6553"
   integrity sha512-esIJx9bQg+QYF0ra8GnvfianIY8qWB0GBx54PK5Eps6m+xTj86KLavHv6qDhzKcu5UUOgNfJ2pWaIIV7TRUd9Q==
 
+"@types/offscreencanvas@~2019.7.0":
+  version "2019.7.3"
+  resolved "https://registry.yarnpkg.com/@types/offscreencanvas/-/offscreencanvas-2019.7.3.tgz#90267db13f64d6e9ccb5ae3eac92786a7c77a516"
+  integrity sha512-ieXiYmgSRXUDeOntE1InxjWyvEelZGP63M+cGuquuRLuIKKT1osnkXjxev9B7d1nXSug5vpunx+gNlbVxMlC9A==
+
 "@types/responselike@^1.0.0":
   version "1.0.3"
   resolved "https://registry.npmjs.org/@types/responselike/-/responselike-1.0.3.tgz"
@@ -420,6 +492,11 @@
   version "0.1.16"
   resolved "https://registry.yarnpkg.com/@webgpu/types/-/types-0.1.16.tgz#1f05497b95b7c013facf7035c8e21784645f5cc4"
   integrity sha512-9E61voMP4+Rze02jlTXud++Htpjyyk8vw5Hyw9FGRrmhHQg2GqbuOfwf5Klrb8vTxc2XWI3EfO7RUHMpxTj26A==
+
+"@webgpu/types@0.1.38":
+  version "0.1.38"
+  resolved "https://registry.yarnpkg.com/@webgpu/types/-/types-0.1.38.tgz#6fda4b410edc753d3213c648320ebcf319669020"
+  integrity sha512-7LrhVKz2PRh+DD7+S+PVaFd5HxaWQvoMqBbsV9fNJO1pjUs1P8bM2vQVNfk+3URTqbuTI7gkXi0rfsN0IadoBA==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"
@@ -738,6 +815,11 @@ core-js@3:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.34.0.tgz#5705e6ad5982678612e96987d05b27c6c7c274a5"
   integrity sha512-aDdvlDder8QmY91H88GzNi9EtQi2TjvQhpCX6B1v/dAZHU1AuLgHvRh54RiOerpEhEW46Tkf+vgAViB/CWC0ag==
 
+core-js@3.29.1:
+  version "3.29.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.29.1.tgz#40ff3b41588b091aaed19ca1aa5cb111803fa9a6"
+  integrity sha512-+jwgnhg6cQxKYIIjGtAHq2nwUOolo9eoFZ4sHfUH09BLXBgxnH4gA0zEd+t+BO2cNB8idaBtZFcFTRjQJRJmAw==
+
 crc-32@~1.2.0:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/crc-32/-/crc-32-1.2.2.tgz#3cad35a934b8bf71f25ca524b6da51fb7eace2ff"
@@ -759,6 +841,13 @@ cssstyle@^2.3.0:
   integrity sha512-AZL67abkUzIuvcHqk7c09cezpGNcxUxU4Ioi/05xHk4DQeTkWmGYftIE6ctU6AEt+Gn4n1lDStOtj7FKycP71A==
   dependencies:
     cssom "~0.3.6"
+
+csv-parser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/csv-parser/-/csv-parser-3.0.0.tgz#b88a6256d79e090a97a1b56451f9327b01d710e7"
+  integrity sha512-s6OYSXAK3IdKqYO33y09jhypG/bSDHPuyCme/IdEHfWpLf/jKcpitVFyOC6UemgGk8v7Q5u2XE0vvwmanxhGlQ==
+  dependencies:
+    minimist "^1.2.0"
 
 danfojs@^1.1.2:
   version "1.1.2"
@@ -807,6 +896,13 @@ decimal.js@^10.2.1, decimal.js@^10.3.1:
   version "10.4.3"
   resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.4.3.tgz#1044092884d245d1b7f65725fa4ad4c6f781cc23"
   integrity sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==
+
+decision-tree@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/decision-tree/-/decision-tree-0.3.7.tgz#5c5d925344a1c988c066b7ca617cd22a67ad7cf7"
+  integrity sha512-owlopiCdbKk5fYaiVfCCom5me0W+gSuVio4D0A+2QA6DV2fGpzxAYE8XB8cS4g1F4Ht6rR8N5HKsjti8kytL+A==
+  dependencies:
+    lodash "^4.17.21"
 
 decompress-response@^6.0.0:
   version "6.0.0"
@@ -1221,6 +1317,11 @@ immutable@^4.0.0:
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-4.3.4.tgz#2e07b33837b4bb7662f288c244d1ced1ef65a78f"
   integrity sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==
 
+is-any-array@^2.0.0, is-any-array@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/is-any-array/-/is-any-array-2.0.1.tgz#9233242a9c098220290aa2ec28f82ca7fa79899e"
+  integrity sha512-UtilS7hLRu++wb/WBAw9bNuP1Eg04Ivn1vERJck8zJthEvXCBEBpGR/33u/xLKWEQf95803oalHrVDptcAvFdQ==
+
 is-binary-path@~2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz"
@@ -1335,6 +1436,15 @@ jsonfile@^4.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
+jsonfile@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-6.1.0.tgz#bc55b2634793c679ec6403094eb13698a6ec0aae"
+  integrity sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==
+  dependencies:
+    universalify "^2.0.0"
+  optionalDependencies:
+    graceful-fs "^4.1.6"
+
 keyv@^4.0.0:
   version "4.5.4"
   resolved "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz"
@@ -1423,6 +1533,11 @@ mathjs@^10.0.0:
     tiny-emitter "^2.1.0"
     typed-function "^2.1.0"
 
+median-quickselect@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/median-quickselect/-/median-quickselect-1.0.1.tgz#de3408035a5b2f0438a39b99893faf3e7d6177f8"
+  integrity sha512-/QL9ptNuLsdA68qO+2o10TKCyu621zwwTFdLvtu8rzRNKsn8zvuGoq/vDxECPyELFG8wu+BpyoMR9BnsJqfVZQ==
+
 mime-db@1.52.0:
   version "1.52.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.52.0.tgz#bbabcdc02859f4987301c856e3387ce5ec43bf70"
@@ -1451,6 +1566,201 @@ minimatch@^3.1.2:
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
+
+minimist@^1.2.0:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
+  integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
+
+ml-array-max@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/ml-array-max/-/ml-array-max-1.2.4.tgz#2373e2b7e51c8807e456cc0ef364c5863713623b"
+  integrity sha512-BlEeg80jI0tW6WaPyGxf5Sa4sqvcyY6lbSn5Vcv44lp1I2GR6AWojfUvLnGTNsIXrZ8uqWmo8VcG1WpkI2ONMQ==
+  dependencies:
+    is-any-array "^2.0.0"
+
+ml-array-mean@^1.1.5:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/ml-array-mean/-/ml-array-mean-1.1.6.tgz#d951a700dc8e3a17b3e0a583c2c64abd0c619c56"
+  integrity sha512-MIdf7Zc8HznwIisyiJGRH9tRigg3Yf4FldW8DxKxpCCv/g5CafTw0RRu51nojVEOXuCQC7DRVVu5c7XXO/5joQ==
+  dependencies:
+    ml-array-sum "^1.1.6"
+
+ml-array-median@^1.1.1, ml-array-median@^1.1.5:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/ml-array-median/-/ml-array-median-1.1.6.tgz#1b21bd85eb140b35d3cabf2ff712e17a36188761"
+  integrity sha512-V6bV6bTPFRX8v5CaAx/7fuRXC39LLTHfPSVZZafdNaqNz2PFL5zEA7gesjv8dMXh+gwPeUMtB5QPovlTBaa4sw==
+  dependencies:
+    is-any-array "^2.0.0"
+    median-quickselect "^1.0.1"
+
+ml-array-min@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/ml-array-min/-/ml-array-min-1.2.3.tgz#662f027c400105816b849cc3cd786915d0801495"
+  integrity sha512-VcZ5f3VZ1iihtrGvgfh/q0XlMobG6GQ8FsNyQXD3T+IlstDv85g8kfV0xUG1QPRO/t21aukaJowDzMTc7j5V6Q==
+  dependencies:
+    is-any-array "^2.0.0"
+
+ml-array-mode@^1.1.4:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/ml-array-mode/-/ml-array-mode-1.1.5.tgz#ed32c1a885539395de028bd7199235446489a890"
+  integrity sha512-30dWTShQq05UzL+ZoG5OuuDvRl3APdz/bHwgZTgqRAJKOZApaWNQxg/ZnN5i/Uls3AjqabRZ70/QhX+/0bfZEA==
+  dependencies:
+    is-any-array "^2.0.0"
+
+ml-array-rescale@^1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ml-array-rescale/-/ml-array-rescale-1.3.7.tgz#c4d129320d113a732e62dd963dc1695bba9a5340"
+  integrity sha512-48NGChTouvEo9KBctDfHC3udWnQKNKEWN0ziELvY3KG25GR5cA8K8wNVzracsqSW1QEkAXjTNx+ycgAv06/1mQ==
+  dependencies:
+    is-any-array "^2.0.0"
+    ml-array-max "^1.2.4"
+    ml-array-min "^1.2.3"
+
+ml-array-sum@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/ml-array-sum/-/ml-array-sum-1.1.6.tgz#d1d89c20793cd29c37b09d40e85681aa4515a955"
+  integrity sha512-29mAh2GwH7ZmiRnup4UyibQZB9+ZLyMShvt4cH4eTK+cL2oEMIZFnSyB3SS8MlsTh6q/w/yh48KmqLxmovN4Dw==
+  dependencies:
+    is-any-array "^2.0.0"
+
+ml-cart@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ml-cart/-/ml-cart-2.1.1.tgz#18ff8d51f5002cb6c5caba0609ba4734f1fa07f3"
+  integrity sha512-f6rIj4EzbjqKLJa2Qmm5AjZ0WVgk+Y7J1N/+pQVaFr0d4oM1uZPLOh5h665LyH+bLBHTFEbvSR4OLKmJRQ8KfA==
+  dependencies:
+    ml-array-mean "^1.1.5"
+    ml-matrix "^6.8.2"
+
+ml-distance-euclidean@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ml-distance-euclidean/-/ml-distance-euclidean-2.0.0.tgz#3a668d236649d1b8fec96380b9435c6f42c9a817"
+  integrity sha512-yC9/2o8QF0A3m/0IXqCTXCzz2pNEzvmcE/9HFKOZGnTjatvBbsn4lWYJkxENkA4Ug2fnYl7PXQxnPi21sgMy/Q==
+
+ml-kernel-gaussian@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ml-kernel-gaussian/-/ml-kernel-gaussian-2.0.2.tgz#2d1a1130d3205e551e7d1dbe642b8f150076e6c0"
+  integrity sha512-5MBrH2g9MBO53I6mcyXvMhyOLsmO2w21+26A1ZV/vYoxqpsov2PWkT8bhdFCEe0kgDupmAb6u81iOID/rhnarA==
+  dependencies:
+    ml-distance-euclidean "^2.0.0"
+
+ml-kernel-polynomial@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ml-kernel-polynomial/-/ml-kernel-polynomial-2.0.1.tgz#ae99e26892f5763185e2334bad862adc5733c599"
+  integrity sha512-aGDNRPHDiKeJmBxB0L9wTxKNLfp5JytbdRIo5K+FTcmFjkWDe3YZPo6R6wBB5mxaJ5eqTRawzeV4RoIWHbakyQ==
+
+ml-kernel-sigmoid@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ml-kernel-sigmoid/-/ml-kernel-sigmoid-1.0.1.tgz#3eb4419a97d68d299dd6faffa8dca0fb91dd3300"
+  integrity sha512-mSbYOSbNQ7GsUAGrHuUHNsLgM3bZGpXkotw/FBdKZD9YMXfVOgQb1LvvvVeSlOR/ZdmX23qqaV0RnKSYWBF8og==
+
+ml-kernel@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ml-kernel/-/ml-kernel-3.0.0.tgz#7d32f6a663b89143eb3439968aa36a396014435e"
+  integrity sha512-R+ZR0Kl5xJ7vnxtlDqjZ26xVk7mAw7ctK4NlzRHviBFXxp7keC9+hWirMOdzi2DOQA0t6CaRwjElZ6SdirOmow==
+  dependencies:
+    ml-distance-euclidean "^2.0.0"
+    ml-kernel-gaussian "^2.0.2"
+    ml-kernel-polynomial "^2.0.1"
+    ml-kernel-sigmoid "^1.0.1"
+    ml-matrix "^6.1.2"
+
+ml-matrix@^6.1.2, ml-matrix@^6.10.1, ml-matrix@^6.8.0, ml-matrix@^6.8.2:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/ml-matrix/-/ml-matrix-6.11.0.tgz#3cf2260ef04cbb8e0e0425e71d200f5cbcf82772"
+  integrity sha512-7jr9NmFRkaUxbKslfRu3aZOjJd2LkSitCGv+QH9PF0eJoEG7jIpjXra1Vw8/kgao8+kHCSsJONG6vfWmXQ+/Eg==
+  dependencies:
+    is-any-array "^2.0.1"
+    ml-array-rescale "^1.3.7"
+
+ml-random-forest@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ml-random-forest/-/ml-random-forest-2.1.0.tgz#78a3ee234d9f2e905037874f073ef7cf3dd6a1b6"
+  integrity sha512-5PpfMFWdCxchjte7N6W38XNqycbheOadrfKySV0mojAfKorXy1HnPLthz3NFDnSO4nnIOaxRtr26bc4ZQaautA==
+  dependencies:
+    ml-array-mean "^1.1.5"
+    ml-array-median "^1.1.5"
+    ml-array-mode "^1.1.4"
+    ml-cart "^2.1.1"
+    ml-matrix "^6.8.2"
+    random-js "^2.1.0"
+
+ml-regression-base@^2.0.1, ml-regression-base@^2.1.3:
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/ml-regression-base/-/ml-regression-base-2.1.6.tgz#91bbf7577ebfc680351479a54bc391d8e95fe42a"
+  integrity sha512-yTckvEc8szc6VrUTJSgAClShvCoPZdNt8pmyRe8aGsIWGjg6bYFotp9mDUwAB0snvKAbQWd6A4trL/PDCASLug==
+  dependencies:
+    is-any-array "^2.0.0"
+
+ml-regression-exponential@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ml-regression-exponential/-/ml-regression-exponential-2.1.0.tgz#567bf3972c4e140c3f06690772b1f28051704d6c"
+  integrity sha512-6ZgGbzIkXnONfGGUU0LjIb9qb35WzVqdAFSX8vFr8UEhgXhfgEws9pGrBJu19VBEh7ZTtttcPObI3aoBscq4Kg==
+  dependencies:
+    ml-regression-base "^2.1.3"
+    ml-regression-simple-linear "^2.0.3"
+
+ml-regression-multivariate-linear@^2.0.2:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/ml-regression-multivariate-linear/-/ml-regression-multivariate-linear-2.0.4.tgz#deaf20299de4fa1aef70934b45622c4ede942e5b"
+  integrity sha512-/vShPAlP+mB7P2mC5TuXwObSJNl/UBI71/bszt9ilTg6yLKy6btDLpAYyJNa6t+JnL5a7q+Yy4dCltfpvqXRIw==
+  dependencies:
+    ml-matrix "^6.10.1"
+
+ml-regression-polynomial@^2.0.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/ml-regression-polynomial/-/ml-regression-polynomial-2.2.0.tgz#0ba22aa203debe917dd058e7a54b5cc7537e1149"
+  integrity sha512-WxFsEmi6oLxgq9TeaVoAA+vVUJFp1kGarX6WWClR8OmlanoIW5iLMnaeXfQcYuH8xNq4R1Cax2N9hYYmeWWkLg==
+  dependencies:
+    ml-matrix "^6.8.0"
+    ml-regression-base "^2.1.3"
+
+ml-regression-power@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ml-regression-power/-/ml-regression-power-2.0.0.tgz#3fc5c7a294d4a7fe1172fc638cc4d891b04ea170"
+  integrity sha512-u8O9Fy45+OeYm/4ZBcNDn5w3w+MHc6kZz/AWSJIwmJcyjz6PRkTZnNfgGYdVKwKKDlAOS7G/AFvMKSTWRNO4RQ==
+  dependencies:
+    ml-regression-base "^2.0.1"
+    ml-regression-simple-linear "^2.0.2"
+
+ml-regression-robust-polynomial@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ml-regression-robust-polynomial/-/ml-regression-robust-polynomial-2.0.1.tgz#a11acc3ac8a75cfcdbf395e74e959d8a81a85543"
+  integrity sha512-WkxA224Cil1G3Ug/T1O8H/2IDADlca21oC5WDplcM+gQRTqtueT/Su4ubH70tG6s79XHM046HfO8xQSpDQxqqg==
+  dependencies:
+    ml-matrix "^6.8.0"
+    ml-regression-base "^2.1.3"
+
+ml-regression-simple-linear@^2.0.2, ml-regression-simple-linear@^2.0.3:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/ml-regression-simple-linear/-/ml-regression-simple-linear-2.0.5.tgz#eedf0533d66f10d5ae04c8529f4336038968892c"
+  integrity sha512-7DBYru8GvWLaYo4LUF9vU2DjzHuM6i6WGnVbEP9wq8nUFUZ2DlwN46m8Z/hNhTSR7+3T+RvhaSY+OqdBpaz8zw==
+  dependencies:
+    ml-regression-base "^2.0.1"
+
+ml-regression-theil-sen@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ml-regression-theil-sen/-/ml-regression-theil-sen-2.0.0.tgz#e3b4c72f3ca630d475284ae59f0bb7f0a27899a3"
+  integrity sha512-RO//tYzo69XbWDO5LIPdGp8ef1MSTPPJY0bXNlmOLMSay7YR9FQqtNgqn29T9DSYTa863VAafRlCeXwDQNXkBw==
+  dependencies:
+    ml-array-median "^1.1.1"
+    ml-regression-base "^2.0.1"
+
+ml-regression@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ml-regression/-/ml-regression-5.0.0.tgz#7e76ee584ff226d8ad867bf6e6b08b2fa14cf9f8"
+  integrity sha512-mBn0LpfEWV3Dk0dj+8PRNUqIHvO87rUY0PmCUTYv3MKfECx7TtlKyeacJeOBLZ4YAVixX8U5hn4HwRL6TpTYaw==
+  dependencies:
+    ml-kernel "^3.0.0"
+    ml-matrix "^6.1.2"
+    ml-regression-base "^2.0.1"
+    ml-regression-exponential "^2.0.0"
+    ml-regression-multivariate-linear "^2.0.2"
+    ml-regression-polynomial "^2.0.0"
+    ml-regression-power "^2.0.0"
+    ml-regression-robust-polynomial "^2.0.0"
+    ml-regression-simple-linear "^2.0.2"
+    ml-regression-theil-sen "^2.0.0"
 
 ms@2.1.2:
   version "2.1.2"
@@ -1621,6 +1931,11 @@ random-forest-classifier@^0.6.0:
   dependencies:
     async "^0.9.0"
     underscore "^1.6.0"
+
+random-js@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/random-js/-/random-js-2.1.0.tgz#0c03238b0a4f701f7a4c7303036ade3083d8ee14"
+  integrity sha512-CRUyWmnzmZBA7RZSVGq0xMqmgCyPPxbiKNLFA5ud7KenojVX2s7Gv+V7eB52beKTPGxWRnVZ7D/tCIgYJJ8vNQ==
 
 readdirp@~3.6.0:
   version "3.6.0"
@@ -1946,6 +2261,11 @@ universalify@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.2.0.tgz#6451760566fa857534745ab1dde952d1b1761be0"
   integrity sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==
+
+universalify@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.1.tgz#168efc2180964e6386d061e094df61afe239b18d"
+  integrity sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==
 
 update-browserslist-db@^1.0.13:
   version "1.0.13"

@@ -5,7 +5,7 @@ const path = require('node:path');
 
 require('@electron/remote/main').initialize();
 
-const DEBUG = true;
+const DEBUG = false;
 
 const createWindow = () => {
     const win = new BrowserWindow({
