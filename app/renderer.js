@@ -19,52 +19,6 @@ const jsonfile = require('jsonfile');
 
 const fakeLoadTime = 0.001;
 
-const heatMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 3,
-    minZoom: 3,
-    edgeBufferTiles: 5,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-const stormPathMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    minZoom: 3,
-    edgeBufferTiles: 5,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-const stormGenesisMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    minZoom: 3,
-    edgeBufferTiles: 5,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-const individualStormPathMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    minZoom: 3,
-    edgeBufferTiles: 5,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-});
-
-mapHook.individualStormPathMapDivision = document.createElement("div");
-mapHook.individualStormPathMapDivision.classList.add("map");
-mapHook.individualStormPathMap = leaflet.map(mapHook.individualStormPathMapDivision);
-mapHook.stormPathByGroupMapDivision = document.createElement("div");
-mapHook.stormPathByGroupMapDivision.classList.add("map");
-mapHook.stormPathByGroupMap = leaflet.map(mapHook.stormPathByGroupMapDivision);
-mapHook.stormGenesisMapDivision = document.createElement("div");
-mapHook.stormGenesisMapDivision.classList.add("map");
-mapHook.stormGenesisMap = leaflet.map(mapHook.stormGenesisMapDivision);
-mapHook.heatMapDivision = document.createElement("div");
-mapHook.heatMapDivision.classList.add("map");
-mapHook.heatMap = leaflet.map(mapHook.heatMapDivision, { zoomControl: false });
-mapHook.maps.push(mapHook.heatMap);
-mapHook.maps.push(mapHook.individualStormPathMap);
-mapHook.maps.push(mapHook.stormPathByGroupMap);
-mapHook.maps.push(mapHook.stormGenesisMap);
-individualStormPathMapLayer.addTo(mapHook.individualStormPathMap);
-stormPathMapLayer.addTo(mapHook.stormPathByGroupMap);
-stormGenesisMapLayer.addTo(mapHook.stormGenesisMap);
-heatMapLayer.addTo(mapHook.heatMap);
-
 const openFileDialog = () => {
     if(conditionHook.isFileDialogOpen) return;
     const options = {
@@ -1032,6 +986,54 @@ const replaceDataFrameValues = (oldValue, newValue, dataFrame) => {
 };
         
 initializeApp = () => {
+
+    
+    const heatMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 3,
+        minZoom: 3,
+        edgeBufferTiles: 5,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    const stormPathMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 3,
+        edgeBufferTiles: 5,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    const stormGenesisMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 3,
+        edgeBufferTiles: 5,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    const individualStormPathMapLayer = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 3,
+        edgeBufferTiles: 5,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+
+    mapHook.individualStormPathMapDivision = document.createElement("div");
+    mapHook.individualStormPathMapDivision.classList.add("map");
+    mapHook.individualStormPathMap = leaflet.map(mapHook.individualStormPathMapDivision);
+    mapHook.stormPathByGroupMapDivision = document.createElement("div");
+    mapHook.stormPathByGroupMapDivision.classList.add("map");
+    mapHook.stormPathByGroupMap = leaflet.map(mapHook.stormPathByGroupMapDivision);
+    mapHook.stormGenesisMapDivision = document.createElement("div");
+    mapHook.stormGenesisMapDivision.classList.add("map");
+    mapHook.stormGenesisMap = leaflet.map(mapHook.stormGenesisMapDivision);
+    mapHook.heatMapDivision = document.createElement("div");
+    mapHook.heatMapDivision.classList.add("map");
+    mapHook.heatMap = leaflet.map(mapHook.heatMapDivision, { zoomControl: false });
+    mapHook.maps.push(mapHook.heatMap);
+    mapHook.maps.push(mapHook.individualStormPathMap);
+    mapHook.maps.push(mapHook.stormPathByGroupMap);
+    mapHook.maps.push(mapHook.stormGenesisMap);
+    individualStormPathMapLayer.addTo(mapHook.individualStormPathMap);
+    stormPathMapLayer.addTo(mapHook.stormPathByGroupMap);
+    stormGenesisMapLayer.addTo(mapHook.stormGenesisMap);
+    heatMapLayer.addTo(mapHook.heatMap);
+
     const currationText = document.getElementById('curration-text');
     const errorText = document.getElementById('error-text');
     const loadingIcon = document.getElementById('loading-icon');
