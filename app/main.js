@@ -20,7 +20,8 @@ const createWindow = () => {
             nodeIntegrationInSubFrames: true,
             enableRemoteModule: true,
             contextIsolation: false,
-        }
+        },
+        show: false,
     })
     win.setMenuBarVisibility(false);
     win.setAspectRatio(16/9);
@@ -32,6 +33,10 @@ const createWindow = () => {
     win.setAlwaysOnTop(true);
     app.focus();
     win.setAlwaysOnTop(false);
+
+    win.once('ready-to-show', () => {
+        win.show()
+    });
 };
 
 app.whenReady().then(() => {
@@ -41,6 +46,8 @@ app.whenReady().then(() => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
     });
 });
+
+
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {

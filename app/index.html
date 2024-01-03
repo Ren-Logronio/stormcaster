@@ -24,13 +24,18 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <div class="d-none z-3">
+            <div class="d-flex flex-row justify-content-center">
+                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
         <div class="d-flex flex-column justify-content-center min-vh-100 position-relative z-2 overflow-hidden">
             <div id="slider" class="d-none flex-column bg-dark-blue w-100 justify-content-evenly position-absolute start-50 top-0 translate-middle-x">
                 <div>
                     <div class="d-flex flex-row">
                         <span id="slider-item-1"></span>
                         <p id="slider-item-2" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
-                            Currate
+                            Curate
                         </p>
                         <div class="flex-grow-1 d-flex flex-column justify-content-center"><hr></div>
                         <p id="slider-item-3" class="p-3 fw-bold border border-1 rounded-1 m-0 slider-item">
@@ -55,8 +60,8 @@
                     </div>
                 </div>
             </div>
-            <div id="slide-1" class="animate__fadeInUp">
-                <div class="d-flex flex-column justify-content-center animate__slideInDown">
+            <div id="slide-1" class="visually-hidden">
+                <div id="content-slide-in-down" class="d-flex flex-column justify-content-center ">
                     <div class="d-flex flex-row justify-content-center">
                         <img src="./public/icon.png" alt="logo" height="64" width="64">
                         <p class="text-center h1 m-0 pt-3 mb-0 fw-bolder align-self-center fst-italic">StormCaster</p>
@@ -67,7 +72,7 @@
                         <span>Louvilla Limpin</span>
                     </div>
                 </div>
-                <div class="d-flex flex-row justify-content-center my-5 animate__fadeIn">
+                <div id="content-fade-in" class="d-flex flex-row justify-content-center my-5 ">
                     <div id="drop-box-block" class="d-none user-select-none d-flex flex-column justify-content-center position-absolute bg-black bg-opacity-75 drop-box-block">
                         <div class="d-flex flex-row justify-content-center animate__bounce animate__loopForever">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="32" width="32" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M2 334.5c-3.8 8.8-2 19 4.6 26l136 144c4.5 4.8 10.8 7.5 17.4 7.5s12.9-2.7 17.4-7.5l136-144c6.6-7 8.4-17.2 4.6-26s-12.5-14.5-22-14.5l-72 0 0-288c0-17.7-14.3-32-32-32L128 0C110.3 0 96 14.3 96 32l0 288-72 0c-9.6 0-18.2 5.7-22 14.5z"/></svg>
@@ -91,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="animate__slideInUp">
+                <div id="content-slide-in-up" class="">
                     <p class="text-center m-0">Final Project for ITD105-Data Analytics</p>
                 </div>
             </div>
@@ -103,7 +108,7 @@
                     <div id="error-icon" class="d-none d-flex flex-row justify-content-center text-danger animate__flash animate__loopForever">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="red" height="45" width="45" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg>
                     </div>
-                    <p class="h1 fw-bolder text-center">Currating</p>
+                    <p class="h1 fw-bolder text-center">Curating</p>
                     <p id="curration-text" class="text-center">Loading Files...</p>
                     <div id="error-text" class="text-white bg-danger text-center"></div>
                 </div>

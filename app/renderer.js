@@ -1118,6 +1118,13 @@ document.addEventListener('DOMContentLoaded', ()=> {
     initializeDropBox();
     initializeApp();
 
+    document.getElementById('content-slide-in-up').classList.add('animate__slideInUp');
+    document.getElementById('content-slide-in-down').classList.add('animate__slideInDown');
+    document.getElementById('slide-1').classList.remove('visually-hidden');
+    document.getElementById('slide-1').classList.add('animate__fadeInUp');
+    document.getElementById('content-fade-in').classList.add('animate__fadeIn');
+
+
     // openCSVFile(`Z:\\storm-predictive-model-project\\Asia-Pacific-Storm-Tracks\\2001-2022storms\\2001-2022storms.csv`);
     //console.log("elementHooks:");
     //console.log(elementHook);
